@@ -3,6 +3,14 @@
   justify-content: center;
   font-size: 48px;
   color: #c6c6c6;
+  margin: 25px 0 25px 0;
+}
+
+.service-main > h3 {
+  display: flex;
+  justify-content: center;
+  font-size: 38px;
+  color: #c6c6c6;
 }
 
 .service-content {
@@ -15,6 +23,17 @@
 
 .service-content > ul > li {
   margin-bottom: 35px;
+}
+
+.service-content > ul > li > button {
+  gap: 20px;
+}
+
+.service-content > ul > li > button > img {
+  gap: 16px;
+  max-width: 100px;
+  width: 100%;
+  background: transparent;
 }
 
 .service-button {
@@ -89,4 +108,33 @@
 .service-button:active::after {
   transition: 0s;
   transform: translate(0, 5%);
+}
+
+@media (max-width: 768px) {
+  .service-main > h1 {
+    font-size: 32px;
+  }
+  .service-main > h3 {
+    font-size: 28px;
+    display: block;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .service-main > h1 {
+    font-size: 24px;
+  }
+  .service-main > h3 {
+    font-size: 20px;
+    display: block;
+    text-align: center;
+  }
+}
+
+@media (min-width: 770px) and (max-width: 910px) {
+  .service-main > h3 {
+    display: block;
+    text-align: center;
+  }
 }
