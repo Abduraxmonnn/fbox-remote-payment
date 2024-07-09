@@ -24,17 +24,17 @@ const PaymentServices = () => {
                         </button>
                     </li>
                     <li data-aos="zoom-in-up">
-                        <button className='service-button'>
+                        <button className='service-button disabled'>
                             <img src={images.click_icon} alt="Click"/>
                         </button>
                     </li>
                     <li data-aos="zoom-in-up">
-                        <button className='service-button'>
+                        <button className='service-button disabled'>
                             <img src={images.uzum_icon} alt="Uzum"/>
                         </button>
                     </li>
                     <li data-aos="zoom-in-up">
-                        <button className='service-button'>
+                        <button className='service-button disabled'>
                             <img src={images.anor_icon} alt="Anor"/>
                         </button>
                     </li>

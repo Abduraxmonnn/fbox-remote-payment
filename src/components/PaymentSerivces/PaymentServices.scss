@@ -52,7 +52,7 @@
   border: none;
   position: relative;
   color: #f0f0f0;
-  cursor: pointer;
+  //cursor: pointer;
   z-index: 1;
   padding: 10px 20px;
   display: flex;
@@ -108,6 +108,15 @@
 .service-button:active::after {
   transition: 0s;
   transform: translate(0, 5%);
+}
+
+.service-button:not(.disabled) {
+  cursor: pointer;
+}
+
+.disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
 }
 
 @media (max-width: 768px) {
