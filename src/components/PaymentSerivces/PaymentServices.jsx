@@ -3,6 +3,7 @@ import AOS from 'aos';
 import 'aos/dist/aos.css';
 import {images} from '../../constants';
 import './PaymentServices.scss';
+import {API, CLICK_API_LOCAL, PAYME_API_LOCAL} from "../../api";
 
 const PaymentServices = () => {
     const [selectedService, setSelectedService] = useState(null);
@@ -11,6 +12,14 @@ const PaymentServices = () => {
         AOS.init({duration: 2000});
     }, []);
 
+    const getApiClient = (service) => {
+        const clients = {
+            payme: PAYME_API_LOCAL,
+            click: CLICK_API_LOCAL,
+        };
+        return clients[service] || API;
+    };
+
     const handleButtonClick = async (service) => {
         setSelectedService(service);
 
@@ -18,28 +27,33 @@ const PaymentServices = () => {
             params: {
                 first: localStorage.getItem('params_first'),
                 second: localStorage.getItem('params_second'),
-            },
-            service,
+            }
         };
 
+        const apiClient = getApiClient(service);
+
         try {
-            const response = await fetch('http://your-backend-api-endpoint', {
-                method: 'POST',
+            const response = await apiClient.post('/', body, {
                 headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({body}),
+                    Authorization: `Token 1d5ec3304c8b3935f67c4ab598f2b464954f19f6`
+                }
             });
 
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
+            if (response.data.status === "successfully") {
+                const url = response.data.message;
+                window.open(url, '_blank');
+            } else {
+                console.log('Response status:', response.data.status);
+                console.log('Message:', response.data.message);
             }
-
-            const data = await response.json();
-            console.log('Success:', data);
         } catch (error) {
             console.error('Error:', error);
         }
+    };
+
+    const isServiceEnabled = (service) => {
+        const enabledServices = ['payme', 'click'];
+        return enabledServices.includes(service);
     };
 
     return (
@@ -66,16 +80,18 @@ const PaymentServices = () => {
                     </li>
                     <li data-aos="zoom-in-up">
                         <button
-                            className='service-button disabled'
-                            onClick={() => handleButtonClick('uzum')}
+                            className={`service-button ${isServiceEnabled('uzum') ? '' : 'disabled'}`}
+                            onClick={() => isServiceEnabled('uzum') && handleButtonClick('uzum')}
+                            disabled={!isServiceEnabled('uzum')}
                         >
                             <img src={images.uzum_icon} alt="Uzum"/>
                         </button>
                     </li>
                     <li data-aos="zoom-in-up">
                         <button
-                            className='service-button disabled'
-                            onClick={() => handleButtonClick('anor')}
+                            className={`service-button ${isServiceEnabled('anor') ? '' : 'disabled'}`}
+                            onClick={() => isServiceEnabled('anor') && handleButtonClick('anor')}
+                            disabled={!isServiceEnabled('anor')}
                         >
                             <img src={images.anor_icon} alt="Anor"/>
                         </button>
