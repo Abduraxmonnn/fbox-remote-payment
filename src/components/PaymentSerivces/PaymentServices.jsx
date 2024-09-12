@@ -35,7 +35,7 @@ const PaymentServices = () => {
         try {
             const response = await apiClient.post('/', body, {
                 headers: {
-                    Authorization: `Token 1d5ec3304c8b3935f67c4ab598f2b464954f19f6`
+                    Authorization: `Token ${process.env.REACT_APP_LOCAL_TOKEN}`
                 }
             });
 
