@@ -3,7 +3,7 @@ import AOS from 'aos';
 import 'aos/dist/aos.css';
 import {images} from '../../constants';
 import './PaymentServices.scss';
-import {API, CLICK_API_LOCAL, PAYME_API_LOCAL} from "../../api";
+import {API, CLICK_API_LOCAL, CLICK_API, PAYME_API_LOCAL, PAYME_API} from "../../api";
 
 const PaymentServices = () => {
     const [selectedService, setSelectedService] = useState(null);
@@ -35,7 +35,7 @@ const PaymentServices = () => {
         try {
             const response = await apiClient.post('/', body, {
                 headers: {
-                    Authorization: `Token ${process.env.REACT_APP_LOCAL_TOKEN}`
+                    Authorization: `Token ${process.env.REACT_APP_SERVER_TOKEN}`
                 }
             });
 
