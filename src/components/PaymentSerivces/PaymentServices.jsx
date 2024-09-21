@@ -14,8 +14,8 @@ const PaymentServices = () => {
 
     const getApiClient = (service) => {
         const clients = {
-            payme: PAYME_API_LOCAL,
-            click: CLICK_API_LOCAL,
+            payme: PAYME_API,
+            click: CLICK_API,
         };
         return clients[service] || API;
     };
@@ -78,24 +78,24 @@ const PaymentServices = () => {
                             <img src={images.click_icon} alt="Click"/>
                         </button>
                     </li>
-                    <li data-aos="zoom-in-up">
-                        <button
-                            className={`service-button ${isServiceEnabled('uzum') ? '' : 'disabled'}`}
-                            onClick={() => isServiceEnabled('uzum') && handleButtonClick('uzum')}
-                            disabled={!isServiceEnabled('uzum')}
-                        >
-                            <img src={images.uzum_icon} alt="Uzum"/>
-                        </button>
-                    </li>
-                    <li data-aos="zoom-in-up">
-                        <button
-                            className={`service-button ${isServiceEnabled('anor') ? '' : 'disabled'}`}
-                            onClick={() => isServiceEnabled('anor') && handleButtonClick('anor')}
-                            disabled={!isServiceEnabled('anor')}
-                        >
-                            <img src={images.anor_icon} alt="Anor"/>
-                        </button>
-                    </li>
+                    {/*<li data-aos="zoom-in-up">*/}
+                    {/*    <button*/}
+                    {/*        className={`service-button ${isServiceEnabled('uzum') ? '' : 'disabled'}`}*/}
+                    {/*        onClick={() => isServiceEnabled('uzum') && handleButtonClick('uzum')}*/}
+                    {/*        disabled={!isServiceEnabled('uzum')}*/}
+                    {/*    >*/}
+                    {/*        <img src={images.uzum_icon} alt="Uzum"/>*/}
+                    {/*    </button>*/}
+                    {/*</li>*/}
+                    {/*<li data-aos="zoom-in-up">*/}
+                    {/*    <button*/}
+                    {/*        className={`service-button ${isServiceEnabled('anor') ? '' : 'disabled'}`}*/}
+                    {/*        onClick={() => isServiceEnabled('anor') && handleButtonClick('anor')}*/}
+                    {/*        disabled={!isServiceEnabled('anor')}*/}
+                    {/*    >*/}
+                    {/*        <img src={images.anor_icon} alt="Anor"/>*/}
+                    {/*    </button>*/}
+                    {/*</li>*/}
                 </ul>
             </div>
         </section>
