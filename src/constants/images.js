@@ -13,6 +13,7 @@ import anorbank_square_icon from '../assets/images/new_providers_icons/anorbank_
 import alif_square_icon from '../assets/images/new_providers_icons/alif_icon.svg'
 import oson_square_icon from '../assets/images/new_providers_icons/oson_icon.svg'
 import default_banner from '../assets/images/defaults/default-banner.jpg'
+import default_store from '../assets/images/defaults/default-store.png'
 
 export const images = {
 	payme_icon,
@@ -30,4 +31,5 @@ export const images = {
 	alif_square_icon,
 	oson_square_icon,
 	default_banner,
+	default_store,
 }

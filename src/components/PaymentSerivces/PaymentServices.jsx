@@ -17,67 +17,67 @@ const paymentMethods = [
 ]
 
 export default function PaymentServices() {
-  const [selectedService, setSelectedService] = useState(null)
-  const [modalIsOpen, setModalIsOpen] = useState(false)
-  const [modalContent, setModalContent] = useState('')
+	const [selectedService, setSelectedService] = useState(null)
+	const [modalIsOpen, setModalIsOpen] = useState(false)
+	const [modalContent, setModalContent] = useState('')
 
-  const isSafari = () => {
-    return /^((?!chrome|android).)*safari/i.test(navigator.userAgent)
-  }
+	const isSafari = () => {
+		return /^((?!chrome|android).)*safari/i.test(navigator.userAgent)
+	}
 
-  const isIphone = () => {
-    return /iPhone/i.test(navigator.userAgent)
-  }
+	const isIphone = () => {
+		return /iPhone/i.test(navigator.userAgent)
+	}
 
-  useEffect(() => {
-    AOS.init({ duration: 2000 })
-  }, [])
+	useEffect(() => {
+		AOS.init({ duration: 2000 })
+	}, [])
 
-  const handleButtonClick = async service => {
-    setSelectedService(service) // Set the selected service
+	const handleButtonClick = async service => {
+		setSelectedService(service) // Set the selected service
 
-    const body = {
-      params: {
-        source: service, // Use the service passed to the function
-        first: localStorage.getItem('params_first'),
-        second: localStorage.getItem('params_second'),
-      },
-    }
+		const body = {
+			params: {
+				source: service, // Use the service passed to the function
+				first: localStorage.getItem('params_first'),
+				second: localStorage.getItem('params_second'),
+			},
+		}
 
-    try {
-      const response = await INIT_API.post('/', body, {
-        headers: {
-          Authorization: `Token ${process.env.REACT_APP_SERVER_TOKEN}`,
-        },
-      })
+		try {
+			const response = await INIT_API.post('/', body, {
+				headers: {
+					Authorization: `Token ${process.env.REACT_APP_SERVER_TOKEN}`,
+				},
+			})
 
-      if (response.data.status === 'successfully') {
-        const url = response.data.message
-        if (isSafari() || isIphone()) {
-          setModalContent(url)
-          setModalIsOpen(true)
-        } else {
-          window.open(url, '_blank') // Open in new tab for other browsers
-        }
-      } else if (response.data.status === 'error') {
-        alert('Транзакция уже обработана.')
-      } else {
-        console.log('Response status:', response.data.status)
-        console.log('Message:', response.data.message)
-      }
-    } catch (error) {
-      console.error('Error:', error)
-    }
-  }
+			if (response.data.status === 'successfully') {
+				const url = response.data.message
+				if (isSafari() || isIphone()) {
+					setModalContent(url)
+					setModalIsOpen(true)
+				} else {
+					window.open(url, '_blank') // Open in new tab for other browsers
+				}
+			} else if (response.data.status === 'error') {
+				alert('Транзакция уже обработана.')
+			} else {
+				console.log('Response status:', response.data.status)
+				console.log('Message:', response.data.message)
+			}
+		} catch (error) {
+			console.error('Error:', error)
+		}
+	}
 
-  const isServiceEnabled = service => {
-    const enabledServices = ['payme', 'click']
-    return enabledServices.includes(service)
-  }
+	const isServiceEnabled = service => {
+		const enabledServices = ['payme', 'click']
+		return enabledServices.includes(service)
+	}
 
-  const closeModal = () => {
-    setModalIsOpen(false)
-  }
+	const closeModal = () => {
+		setModalIsOpen(false)
+	}
 
 	return (
 		<div className='payment-page'>
@@ -89,10 +89,23 @@ export default function PaymentServices() {
 				/>
 				<div className='banner-overlay'>
 					<div className='logo-container'>
-						<div className='logo'>Bon!</div>
+						<div className='logo'>
+							<img
+								src={images.default_store}
+								alt='store-image'
+								className='store-image'
+							/>
+						</div>
 						<div>
 							<h1 className='restaurant-name'>Bon!</h1>
-							<p className='restaurant-address'><img src={images.locationIcon} alt='locaiton icon' className='location-image' />улица Тараса Шевченко, 28</p>
+							<p className='restaurant-address'>
+								<img
+									src={images.locationIcon}
+									alt='locaiton icon'
+									className='location-image'
+								/>
+								улица Тараса Шевченко, 28
+							</p>
 						</div>
 					</div>
 				</div>
