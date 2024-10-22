@@ -1,7 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Judson:wght@400;700&display=swap');
 
+
+
 .payment-page {
-  font-family: 'Judson', serif;
   max-width: 28rem;
   margin: 0 auto;
   background-color: white;
@@ -49,7 +50,6 @@
 }
 
 .restaurant-name {
-  font-family: 'Judson', serif;
   font-size: 2rem;
   font-weight: 100;
   color: white;
@@ -91,7 +91,7 @@
 }
 
 .total-amount {
-  font-size: 2.25rem;
+  font-size: 3rem;
   font-weight: bold;
   color: #000080;
   text-align: center;
@@ -127,10 +127,6 @@
   background-color: #f7fafc;
 }
 
-.total-amount {
-  font-family: 'Judson', serif;
-}
-
 .method-icon {
   width: 4rem;
   height: 2rem;
@@ -138,6 +134,10 @@
   overflow: hidden;
   margin-right: 0.75rem;
   background-color: #f7fafc;
+}
+
+.payment-provider {
+  font-family: "Kantumruy Pro", serif;
 }
 
 .icon-image {

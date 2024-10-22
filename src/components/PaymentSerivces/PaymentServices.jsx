@@ -133,7 +133,7 @@ export default function PaymentServices() {
 										className='icon-image'
 									/>
 								</div>
-								<span>{method.name}</span>
+								<span className='payment-provider'>{method.name}</span>
 							</div>
 							<ChevronRight className='chevron' />
 						</div>

@@ -19,7 +19,8 @@
     padding: 0;
     margin: 0;
     scroll-behavior: smooth;
-    font-family: "Kantumruy Pro", serif;
+    /* font-family: "Kantumruy Pro", serif; */
+    font-family: 'Judson', serif;
     /* background-color: #fbf4ee; */
 }
 
