@@ -1,22 +1,90 @@
-import React from 'react';
-import { ChevronRight } from 'lucide-react';
-import './PaymentServices.scss';
-import {images} from "../../constants";
+import { useState, useEffect } from 'react'
+import Modal from 'react-modal'
+import AOS from 'aos'
+import 'aos/dist/aos.css'
+import { ChevronRight } from 'lucide-react'
+import './PaymentServices.scss'
+import { images } from '../../constants'
+import { INIT_API, INIT_LOCAL_API } from '../../api'
+
+Modal.setAppElement('#root')
 
 const paymentMethods = [
-  { name: 'Payme', icon: images.payme_square_icon },
-  { name: 'Click', icon: images.click_square_icon },
-  { name: 'Uzum', icon: images.uzum_square_icon },
-  { name: 'Anorbank', icon: images.anorbank_square_icon },
-];
+	{ name: 'Payme', icon: images.payme_square_icon },
+	{ name: 'Click', icon: images.click_square_icon },
+	{ name: 'Uzum', icon: images.uzum_square_icon },
+	{ name: 'Anorbank', icon: images.anorbank_square_icon },
+]
 
 export default function PaymentServices() {
-  return (
+  const [selectedService, setSelectedService] = useState(null)
+  const [modalIsOpen, setModalIsOpen] = useState(false)
+  const [modalContent, setModalContent] = useState('')
+
+  const isSafari = () => {
+    return /^((?!chrome|android).)*safari/i.test(navigator.userAgent)
+  }
+
+  const isIphone = () => {
+    return /iPhone/i.test(navigator.userAgent)
+  }
+
+  useEffect(() => {
+    AOS.init({ duration: 2000 })
+  }, [])
+
+  const handleButtonClick = async service => {
+    setSelectedService(service) // Set the selected service
+
+    const body = {
+      params: {
+        source: service, // Use the service passed to the function
+        first: localStorage.getItem('params_first'),
+        second: localStorage.getItem('params_second'),
+      },
+    }
+
+    try {
+      const response = await INIT_API.post('/', body, {
+        headers: {
+          Authorization: `Token ${process.env.REACT_APP_SERVER_TOKEN}`,
+        },
+      })
+
+      if (response.data.status === 'successfully') {
+        const url = response.data.message
+        if (isSafari() || isIphone()) {
+          setModalContent(url)
+          setModalIsOpen(true)
+        } else {
+          window.open(url, '_blank') // Open in new tab for other browsers
+        }
+      } else if (response.data.status === 'error') {
+        alert('Транзакция уже обработана.')
+      } else {
+        console.log('Response status:', response.data.status)
+        console.log('Message:', response.data.message)
+      }
+    } catch (error) {
+      console.error('Error:', error)
+    }
+  }
+
+  const isServiceEnabled = service => {
+    const enabledServices = ['payme', 'click']
+    return enabledServices.includes(service)
+  }
+
+  const closeModal = () => {
+    setModalIsOpen(false)
+  }
+
+	return (
 		<div className='payment-page'>
 			<div className='banner'>
 				<img
-					src='https://via.placeholder.com/384x192'
-					alt='Bon! restaurant banner'
+					src={images.default_banner}
+					alt='Restaurant banner'
 					className='banner-image'
 				/>
 				<div className='banner-overlay'>
@@ -24,7 +92,7 @@ export default function PaymentServices() {
 						<div className='logo'>Bon!</div>
 						<div>
 							<h1 className='restaurant-name'>Bon!</h1>
-							<p className='restaurant-address'>✓ улица Тараса Шевченко, 28</p>
+							<p className='restaurant-address'><img src={images.locationIcon} alt='locaiton icon' className='location-image' />улица Тараса Шевченко, 28</p>
 						</div>
 					</div>
 				</div>
@@ -58,7 +126,7 @@ export default function PaymentServices() {
 						</div>
 					))}
 
-					<p className='footer'>design powered by FiscalBox</p>
+					<p className='footer'>Design powered by FiscalBox</p>
 				</div>
 			</div>
 		</div>

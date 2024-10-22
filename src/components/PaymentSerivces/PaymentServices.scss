@@ -55,7 +55,15 @@
   margin: 0;
 }
 
+.location-image {
+  width: 20px;
+  height: 20px;
+  margin-right: 0.5rem;
+}
+
 .restaurant-address {
+  display: flex;
+  align-items: center;
   font-size: 0.875rem;
   color: #e5e5e5;
   margin: 0;
@@ -109,12 +117,17 @@
   background-color: #f7fafc;
   border-radius: 0.5rem;
   margin-bottom: 0.75rem;
+  cursor: pointer;
 }
 
 .method-info {
   display: flex;
   align-items: center;
   background-color: #f7fafc;
+}
+
+.total-amount {
+  font-family: 'Judson', serif;
 }
 
 .method-icon {
