@@ -49,8 +49,8 @@
 }
 
 .restaurant-name {
-  font-size: 1.25rem;
-  font-weight: bold;
+  font-family: 'Judson', serif;
+  font-size: 2rem;
   color: white;
   margin: 0;
 }
@@ -71,16 +71,16 @@
 
 .button-section {
   display: flex;
-  flex-direction: column; /* Stack items vertically */
-  justify-content: flex-end; /* Align items to the bottom */
-  margin-top: auto; /* This will push the button section to the bottom */
+  flex-direction: column;  
+  justify-content: flex-end;
+  margin-top: auto;
 }
 
 .content {
   padding: 1.5rem;
   display: flex;
-  flex-direction: column; /* Stack items vertically */
-  height: calc(100vh - 12rem); /* Adjust this based on your banner height */
+  flex-direction: column;
+  height: calc(100vh - 12rem);
 }
 
 .section-title {
