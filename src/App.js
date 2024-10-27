@@ -9,7 +9,7 @@ function App() {
       <Routes>
         <Route path="/" element={<PaymentServices />} />
         <Route
-          path="/:params_first/:params_second"
+          path="/:transaction_id/"
           element={<ParamsHandler />}
         />
       </Routes>
