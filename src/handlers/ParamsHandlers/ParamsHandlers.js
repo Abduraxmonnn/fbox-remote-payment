@@ -3,19 +3,20 @@ import {useNavigate, useParams} from 'react-router-dom';
 
 const ParamsHandler = () => {
     const navigate = useNavigate();
-    const {transactionId} = useParams(); // Extract parameters from the path
+    const {transaction_id} = useParams() // Extract parameters from the path
+    console.log('transaction_id: ', transaction_id)
 
     useEffect(() => {
-        if (transactionId) {
-            try {
-                localStorage.setItem('transactionId', transactionId);
-            } catch (error) {
-                console.error("Error decoding parameters:", error);
-            }
-        }
+			if (transaction_id) {
+				try {
+					localStorage.setItem('transactionId', transaction_id)
+				} catch (error) {
+					console.error('Error decoding parameters:', error)
+				}
+			}
 
-        navigate('/');
-    }, [transactionId, navigate]);
+			navigate('/')
+		}, [transaction_id, navigate])
 
     return null; // No UI needed for this component
 };

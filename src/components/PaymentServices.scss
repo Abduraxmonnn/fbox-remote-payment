@@ -1,7 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Judson:wght@400;700&display=swap');
 
-
-
 .payment-page {
   max-width: 28rem;
   margin: 0 auto;
@@ -163,4 +161,18 @@
   color: #a0aec0;
   text-align: center;
   margin-top: 1.5rem;
+}
+
+.loading {
+  position: fixed;
+  inset: 0px;
+  width: 12rem;
+  height: 5rem;
+  max-width: 100vw;
+  max-height: 100dvh;
+  margin: auto;
+}
+
+.default-page {
+  filter: blur(5px);
 }
