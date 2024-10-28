@@ -119,21 +119,17 @@ return (
 					</p>
 
 					<h3 className='section-title' data-aos='zoom-in-up'>
-						Способы оплаты
+						Выберите способы оплаты
 					</h3>
 
 					<div className='button-section'>
 						<div className='divider' data-aos='zoom-in'></div>
 
-						<h4 className='section-title' data-aos='zoom-in'>
-							Выберите способы оплаты
-						</h4>
-
 						{paymentMethods.map(method => (
 							<div
 								key={method.name}
 								className='payment-method'
-								data-aos='zoom-out-up'
+								data-aos='zoom-in'
 							>
 								<div className='method-info'>
 									<div className='method-icon'>
@@ -162,9 +158,7 @@ return (
 				</div>
 			</>
 		) : (
-			<>
-        {DefaultPaymentServices()}
-			</>
+			<>{DefaultPaymentServices()}</>
 		)}
 	</div>
 )
