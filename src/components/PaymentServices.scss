@@ -10,6 +10,8 @@
 .banner {
   position: relative;
   height: 12rem;
+  padding: 0 20px;
+  box-sizing: border-box;
 }
 
 .banner-image {
@@ -22,6 +24,8 @@
 .banner-overlay {
   position: absolute;
   inset: 0;
+  left: 20px;
+  right: 20px; 
   background-color: rgba(0, 0, 0, 0.4);
   display: flex;
   align-items: flex-end;
@@ -173,6 +177,6 @@
   margin: auto;
 }
 
-.default-page {
-  filter: blur(5px);
-}
+// .default-page {
+//   filter: blur(5px);
+// }
