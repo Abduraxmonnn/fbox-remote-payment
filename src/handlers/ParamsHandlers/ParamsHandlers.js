@@ -3,8 +3,7 @@ import {useNavigate, useParams} from 'react-router-dom';
 
 const ParamsHandler = () => {
     const navigate = useNavigate();
-    const {transaction_id} = useParams() // Extract parameters from the path
-    console.log('transaction_id: ', transaction_id)
+    const {transaction_id} = useParams()
 
     useEffect(() => {
 			if (transaction_id) {

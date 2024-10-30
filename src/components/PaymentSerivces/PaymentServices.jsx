@@ -5,20 +5,22 @@ import 'aos/dist/aos.css';
 import { ChevronRight } from 'lucide-react';
 import '../PaymentServices.scss';
 import { images } from '../../constants';
-import { DATA_LOCAL_API } from '../../api';
+import { INIT_API, INIT_LOCAL_API,  DATA_LOCAL_API } from '../../api'
 import DefaultPaymentServices from '../DefaultPaymentService/DefaultPaymentService';
 
 Modal.setAppElement('#root');
 
 const paymentMethods = [
-  { name: 'Payme', icon: images.payme_square_icon },
-  { name: 'Click', icon: images.click_square_icon },
+  { key: 'payme', name: 'Payme', icon: images.payme_square_icon },
+  { key: 'click', name: 'Click', icon: images.click_square_icon },
   {
+		key: 'uzum',
     name: 'Uzum',
     icon: images.uzum_square_icon,
     isWork: 'Скоро доступно',
   },
   {
+		key: 'anorbank',
     name: 'Anorbank',
     icon: images.anorbank_square_icon,
     isWork: 'Скоро доступно',
@@ -30,6 +32,14 @@ export default function PaymentServices() {
 	const [selectedService, setSelectedService] = useState(null)
 	const [modalIsOpen, setModalIsOpen] = useState(false)
 	const [modalContent, setModalContent] = useState('')
+
+	const isSafari = () => {
+		return /^((?!chrome|android).)*safari/i.test(navigator.userAgent)
+	}
+
+	const isIphone = () => {
+		return /iPhone/i.test(navigator.userAgent)
+	}
 
 	const fetchTransactionData = async () => {
 		const body = {
@@ -50,6 +60,7 @@ export default function PaymentServices() {
 				orderId: response.data.order_id,
 				marketLogo: response.data.company_logo,
 				marketBanner: response.data.company_banner,
+				transactionId: localStorage.getItem('transactionId'),
 			}
 
 			setTransactionData(data)
@@ -66,9 +77,50 @@ export default function PaymentServices() {
 	// Log transactionData whenever it changes
 	useEffect(() => {
 		if (transactionData) {
-			console.log('transactionData: ', transactionData)
+			// console.log('transactionData: ', transactionData)
 		}
 	}, [transactionData])
+
+	const handleButtonClick = async service => {
+		setSelectedService(service) // Set the selected service
+
+		const body = {
+			params: {
+				source: service,
+				order_id: transactionData.orderId,
+				transaction_id: transactionData.transactionId,
+			},
+		}
+
+		try {
+			const response = await INIT_LOCAL_API.post('/', body, {
+				headers: {
+					Authorization: `Token ${process.env.REACT_APP_SERVER_TOKEN}`,
+				},
+			})
+
+			if (response.data.status === 'successfully') {
+				const url = response.data.message
+				if (isSafari() || isIphone()) {
+					setModalContent(url)
+					setModalIsOpen(true)
+				} else {
+					window.open(url, '_blank')
+				}
+			} else if (response.data.status === 'error') {
+				alert('Транзакция уже обработана.')
+			} else {
+				console.log('Response status:', response.data.status)
+				console.log('Message:', response.data.message)
+			}
+		} catch (error) {
+			console.error('Error:', error)
+		}
+	}
+
+	const closeModal = () => {
+		setModalIsOpen(false)
+	}
 
 return (
 	<div className='payment-page'>
@@ -130,6 +182,7 @@ return (
 								key={method.name}
 								className='payment-method'
 								data-aos='zoom-in'
+								onClick={() => handleButtonClick(method.key)}
 							>
 								<div className='method-info'>
 									<div className='method-icon'>
@@ -155,6 +208,36 @@ return (
 
 						<p className='footer'>Design powered by FiscalBox</p>
 					</div>
+					{(isSafari() || isIphone()) && (
+						<Modal
+							isOpen={modalIsOpen}
+							onRequestClose={closeModal}
+							contentLabel='Payment Link'
+							className='payment-modal'
+							overlayClassName='payment-modal-overlay'
+						>
+							<div className='modal-content'>
+								<h2 className='modal-title'>Ссылка для оплаты</h2>
+								<div className='modal-buttons'>
+									<button
+										className='modal-button primary-button'
+										onClick={() => {
+											window.open(modalContent, '_blank')
+											closeModal()
+										}}
+									>
+										Открыть в новой вкладке
+									</button>
+									<button
+										className='modal-button secondary-button'
+										onClick={closeModal}
+									>
+										Закрывать
+									</button>
+								</div>
+							</div>
+						</Modal>
+					)}
 				</div>
 			</>
 		) : (
