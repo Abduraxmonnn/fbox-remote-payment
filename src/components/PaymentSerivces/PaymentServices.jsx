@@ -164,7 +164,7 @@ return (
 						Итого к оплате
 					</h2>
 					<p className='total-amount' data-aos='zoom-in-up'>
-						{transactionData.amount}
+						{transactionData.amount.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$& ')}
 					</p>
 					<p className='invoice-number' data-aos='zoom-in-up'>
 						Счет №{transactionData.orderId}

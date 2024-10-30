@@ -58,7 +58,7 @@ export default function DefaultPaymentServices() {
 					Итого к оплате
 				</h2>
 				<p className='total-amount' data-aos='zoom-in-up'>
-					000 000
+					{(0).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$& ')}
 				</p>
 				<p className='invoice-number' data-aos='zoom-in-up'>
 					Счет №46454
