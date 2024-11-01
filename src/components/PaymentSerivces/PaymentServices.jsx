@@ -1,139 +1,248 @@
-import {useState, useEffect} from "react";
+import { useState, useEffect } from 'react';
 import Modal from 'react-modal';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-import {images} from '../../constants';
-import './PaymentServices.scss';
-import {INIT_API, INIT_LOCAL_API} from "../../api";
+import { ChevronRight } from 'lucide-react';
+import '../PaymentServices.scss';
+import { images } from '../../constants';
+import { INIT_API, INIT_LOCAL_API,  DATA_LOCAL_API } from '../../api'
+import DefaultPaymentServices from '../DefaultPaymentService/DefaultPaymentService';
 
 Modal.setAppElement('#root');
 
-const PaymentServices = () => {
-    const [selectedService, setSelectedService] = useState(null);
-    const [modalIsOpen, setModalIsOpen] = useState(false);
-    const [modalContent, setModalContent] = useState('');
+const paymentMethods = [
+  { key: 'payme', name: 'Payme', icon: images.payme_square_icon },
+  { key: 'click', name: 'Click', icon: images.click_square_icon },
+  {
+		key: 'uzum',
+    name: 'Uzum',
+    icon: images.uzum_square_icon,
+    isWork: 'Скоро доступно',
+  },
+  {
+		key: 'anorbank',
+    name: 'Anorbank',
+    icon: images.anorbank_square_icon,
+    isWork: 'Скоро доступно',
+  },
+];
 
-    const isSafari = () => {
-        return /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-    };
+export default function PaymentServices() {
+	const [transactionData, setTransactionData] = useState(null)
+	const [selectedService, setSelectedService] = useState(null)
+	const [modalIsOpen, setModalIsOpen] = useState(false)
+	const [modalContent, setModalContent] = useState('')
 
-    const isIphone = () => {
-        return /iPhone/i.test(navigator.userAgent);
-    };
+	const isSafari = () => {
+		return /^((?!chrome|android).)*safari/i.test(navigator.userAgent)
+	}
 
-    useEffect(() => {
-        AOS.init({duration: 2000});
-    }, []);
+	const isIphone = () => {
+		return /iPhone/i.test(navigator.userAgent)
+	}
 
-    const handleButtonClick = async (service) => {
-        setSelectedService(service); // Set the selected service
+	const fetchTransactionData = async () => {
+		const body = {
+			transaction_id: localStorage.getItem('transactionId'),
+		}
 
-        const body = {
-            params: {
-                source: service, // Use the service passed to the function
-                first: localStorage.getItem('params_first'),
-                second: localStorage.getItem('params_second'),
-            }
-        };
+		try {
+			const response = await DATA_LOCAL_API.post('/', body, {
+				headers: {
+					Authorization: `Token ${process.env.REACT_APP_SERVER_TOKEN}`,
+				},
+			})
 
-        try {
-            const response = await INIT_API.post('/', body, {
-                headers: {
-                    Authorization: `Token ${process.env.REACT_APP_SERVER_TOKEN}`
-                }
-            });
+			const data = {
+				marketName: response.data.company_name,
+				marketAddress: response.data.company_address,
+				amount: response.data.amount,
+				orderId: response.data.order_id,
+				marketLogo: response.data.company_logo,
+				marketBanner: response.data.company_banner,
+				transactionId: localStorage.getItem('transactionId'),
+			}
 
-            if (response.data.status === "successfully") {
-                const url = response.data.message;
-                if (isSafari() || isIphone()) {
-                    setModalContent(url);
-                    setModalIsOpen(true);
-                } else {
-                    window.open(url, '_blank'); // Open in new tab for other browsers/devices
-                }
-            } else if (response.data.status === 'error') {
-                alert("Транзакция уже обработана.");
-            } else {
-                console.log('Response status:', response.data.status);
-                console.log('Message:', response.data.message);
-            }
-        } catch (error) {
-            console.error('Error:', error);
-        }
-    };
+			setTransactionData(data)
+		} catch (err) {
+			console.error('Something went wrong:', err)
+		}
+	}
 
+	useEffect(() => {
+		AOS.init({ duration: 2000 })
+		fetchTransactionData()
+	}, [])
 
-    const isServiceEnabled = (service) => {
-        const enabledServices = ['payme', 'click'];
-        return enabledServices.includes(service);
-    };
+	// Log transactionData whenever it changes
+	useEffect(() => {
+		if (transactionData) {
+			// console.log('transactionData: ', transactionData)
+		}
+	}, [transactionData])
 
-    const closeModal = () => {
-        setModalIsOpen(false);
-    };
+	const handleButtonClick = async service => {
+		setSelectedService(service) // Set the selected service
 
-    return (
-        <section className='service-main'>
-            <h1 data-aos="zoom-in">Добро пожаловать!</h1>
-            <h3 data-aos="zoom-in">Пожалуйста, выберите один из способов оплаты</h3>
-            <div className="service-content">
-                <ul>
-                    <li data-aos="zoom-in-up">
-                        <button
-                            className='service-button'
-                            onClick={() => handleButtonClick('payme')}
-                        >
-                            <img src={images.payme_icon} alt="PayMe"/>
-                        </button>
-                    </li>
-                    <li data-aos="zoom-in-up">
-                        <button
-                            className='service-button'
-                            onClick={() => handleButtonClick('click')}
-                        >
-                            <img src={images.click_icon} alt="Click"/>
-                        </button>
-                    </li>
-                    {/* Uncomment these if needed
-                    <li data-aos="zoom-in-up">
-                        <button
-                            className={`service-button ${isServiceEnabled('uzum') ? '' : 'disabled'}`}
-                            onClick={() => isServiceEnabled('uzum') && handleButtonClick('uzum')}
-                            disabled={!isServiceEnabled('uzum')}
-                        >
-                            <img src={images.uzum_icon} alt="Uzum"/>
-                        </button>
-                    </li>
-                    <li data-aos="zoom-in-up">
-                        <button
-                            className={`service-button ${isServiceEnabled('anor') ? '' : 'disabled'}`}
-                            onClick={() => isServiceEnabled('anor') && handleButtonClick('anor')}
-                            disabled={!isServiceEnabled('anor')}
-                        >
-                            <img src={images.anor_icon} alt="Anor"/>
-                        </button>
-                    </li>
-                    */}
-                </ul>
-            </div>
-            {(isSafari() || isIphone()) && (
-                <Modal
-                    isOpen={modalIsOpen}
-                    onRequestClose={closeModal}
-                    contentLabel="Payment Link"
-                    className="modal"
-                    overlayClassName="overlay"
-                >
-                    <h2>Ссылка для оплаты</h2>
-                    <button onClick={() => {
-                        window.open(modalContent, '_blank');
-                        closeModal();
-                    }}>Открыть в новой вкладке</button>
-                    <button onClick={closeModal}>Закрывать</button>
-                </Modal>
-            )}
-        </section>
-    );
-};
+		const body = {
+			params: {
+				source: service,
+				order_id: transactionData.orderId,
+				transaction_id: transactionData.transactionId,
+			},
+		}
 
-export default PaymentServices;
+		try {
+			const response = await INIT_LOCAL_API.post('/', body, {
+				headers: {
+					Authorization: `Token ${process.env.REACT_APP_SERVER_TOKEN}`,
+				},
+			})
+
+			if (response.data.status === 'successfully') {
+				const url = response.data.message
+				if (isSafari() || isIphone()) {
+					setModalContent(url)
+					setModalIsOpen(true)
+				} else {
+					window.open(url, '_blank')
+				}
+			} else if (response.data.status === 'error') {
+				alert('Транзакция уже обработана.')
+			} else {
+				console.log('Response status:', response.data.status)
+				console.log('Message:', response.data.message)
+			}
+		} catch (error) {
+			console.error('Error:', error)
+		}
+	}
+
+	const closeModal = () => {
+		setModalIsOpen(false)
+	}
+
+return (
+	<div className='payment-page'>
+		{transactionData ? (
+			<>
+				<div className='banner'>
+					<img
+						src={transactionData.marketBanner || images.default_banner}
+						alt='Restaurant banner'
+						className='banner-image'
+						data-aos='zoom-in'
+					/>
+					<div className='banner-overlay'>
+						<div className='logo-container'>
+							<div className='logo' data-aos='zoom-in'>
+								<img
+									src={transactionData.marketLogo || images.default_store}
+									alt='store-image'
+									className='store-image'
+								/>
+							</div>
+							<div>
+								<h1 className='restaurant-name' data-aos='flip-down'>
+									{transactionData.marketName}
+								</h1>
+								<p className='restaurant-address' data-aos='flip-down'>
+									<img
+										src={images.locationIcon}
+										alt='location icon'
+										className='location-image'
+									/>
+									{transactionData.company_address || 'Узбекистан'}
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div className='content'>
+					<h2 className='section-title' data-aos='zoom-in-up'>
+						Итого к оплате
+					</h2>
+					<p className='total-amount' data-aos='zoom-in-up'>
+						{transactionData.amount.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$& ')}
+					</p>
+					<p className='invoice-number' data-aos='zoom-in-up'>
+						Счет №{transactionData.orderId}
+					</p>
+
+					<h3 className='section-title' data-aos='zoom-in-up'>
+						Выберите способы оплаты
+					</h3>
+
+					<div className='button-section'>
+						<div className='divider' data-aos='zoom-in'></div>
+
+						{paymentMethods.map(method => (
+							<div
+								key={method.name}
+								className='payment-method'
+								data-aos='zoom-in'
+								onClick={() => handleButtonClick(method.key)}
+							>
+								<div className='method-info'>
+									<div className='method-icon'>
+										<img
+											src={method.icon}
+											alt={`${method.name} icon`}
+											className='icon-image'
+										/>
+									</div>
+									<span className='payment-provider'>
+										{method.name}
+										{method.isWork && (
+											<span className='soon-payment-provider'>
+												{' '}
+												- {method.isWork}
+											</span>
+										)}
+									</span>
+								</div>
+								<ChevronRight className='chevron' />
+							</div>
+						))}
+
+						<p className='footer'>Design powered by FiscalBox</p>
+					</div>
+					{(isSafari() || isIphone()) && (
+						<Modal
+							isOpen={modalIsOpen}
+							onRequestClose={closeModal}
+							contentLabel='Payment Link'
+							className='payment-modal'
+							overlayClassName='payment-modal-overlay'
+						>
+							<div className='modal-content'>
+								<h2 className='modal-title'>Ссылка для оплаты</h2>
+								<div className='modal-buttons'>
+									<button
+										className='modal-button primary-button'
+										onClick={() => {
+											window.open(modalContent, '_blank')
+											closeModal()
+										}}
+									>
+										Открыть в новой вкладке
+									</button>
+									<button
+										className='modal-button secondary-button'
+										onClick={closeModal}
+									>
+										Закрывать
+									</button>
+								</div>
+							</div>
+						</Modal>
+					)}
+				</div>
+			</>
+		) : (
+			<>{DefaultPaymentServices()}</>
+		)}
+	</div>
+)
+}
