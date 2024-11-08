@@ -25,11 +25,10 @@ export default function DefaultPaymentServices() {
 					src={images.default_banner}
 					alt='Restaurant banner'
 					className='banner-image'
-					data-aos='zoom-in'
 				/>
 				<div className='banner-overlay'>
 					<div className='logo-container'>
-						<div className='logo' data-aos='zoom-in'>
+						<div className='logo'>
 							<img
 								src={images.default_store}
 								alt='store-image'
@@ -37,10 +36,10 @@ export default function DefaultPaymentServices() {
 							/>
 						</div>
 						<div>
-							<h1 className='restaurant-name' data-aos='flip-down'>
+							<h1 className='restaurant-name'>
 								Scan 2 Pay
 							</h1>
-							<p className='restaurant-address' data-aos='flip-down'>
+							<p className='restaurant-address'>
 								<img
 									src={images.locationIcon}
 									alt='locaiton icon'
@@ -54,28 +53,27 @@ export default function DefaultPaymentServices() {
 			</div>
 
 			<div className='content'>
-				<h2 className='section-title' data-aos='zoom-in-up'>
+				<h2 className='section-title'>
 					Итого к оплате
 				</h2>
-				<p className='total-amount' data-aos='zoom-in-up'>
+				<p className='total-amount'>
 					{(0).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$& ')}
 				</p>
-				<p className='invoice-number' data-aos='zoom-in-up'>
+				<p className='invoice-number'>
 					Счет №46454
 				</p>
 
-				<h3 className='section-title' data-aos='zoom-in-up'>
+				<h3 className='section-title'>
 					Выберите способы оплаты
 				</h3>
 
 				<div className='button-section'>
-					<div className='divider' data-aos='zoom-in'></div>
+					<div className='divider'></div>
 
 					{paymentMethods.map(method => (
 						<div
 							key={method.name}
 							className='payment-method'
-							data-aos='zoom-in'
 						>
 							<div className='method-info'>
 								<div className='method-icon'>
