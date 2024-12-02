@@ -214,6 +214,10 @@
   text-align: center;
 }
 
+.modal-title.processed {
+  color: red;
+}
+
 .modal-buttons {
   display: flex;
   flex-direction: column;
