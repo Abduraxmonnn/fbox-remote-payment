@@ -7,6 +7,7 @@ import '../PaymentServices.scss';
 import {images} from '../../constants';
 import {INIT_API, INIT_LOCAL_API, DATA_API, DATA_LOCAL_API} from '../../api'
 import DefaultPaymentServices from '../DefaultPaymentService/DefaultPaymentService';
+import axios from "axios";
 
 Modal.setAppElement('#root');
 
@@ -55,11 +56,17 @@ export default function PaymentServices() {
         }
 
         try {
-            const response = await APIData.post('/', body, {
+            // const response = await APIData.post('/', body, {
+            //     headers: {
+            //         Authorization: `Token ${process.env.REACT_APP_SERVER_TOKEN}`,
+            //     },
+            // })
+
+            const response = await axios.post('https://api.fbox.uz/api/v1/order/remote/pay/data/', body, {
                 headers: {
                     Authorization: `Token ${process.env.REACT_APP_SERVER_TOKEN}`,
                 },
-            })
+            });
 
             const data = {
                 marketName: response.data.company_name,
@@ -253,7 +260,8 @@ export default function PaymentServices() {
                                     overlayClassName='payment-modal-overlay'
                                 >
                                     <div className='modal-content'>
-                                        <h2 className={`modal-title${isProcessed ? ' processed' : ''}`}>Транзакция уже обработана.</h2>
+                                        <h2 className={`modal-title${isProcessed ? ' processed' : ''}`}>Транзакция уже
+                                            обработана.</h2>
                                         <div className='modal-buttons'>
                                             <button
                                                 className='modal-button secondary-button'
