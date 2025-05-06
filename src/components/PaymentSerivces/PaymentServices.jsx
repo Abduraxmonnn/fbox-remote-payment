@@ -34,11 +34,11 @@ const paymentMethods = [
 ];
 
 export default function PaymentServices() {
-    const [transactionData, setTransactionData] = useState(null)
-    const [selectedService, setSelectedService] = useState(null)
-    const [modalIsOpen, setModalIsOpen] = useState(false)
-    const [modalContent, setModalContent] = useState('')
-    const [isProcessed, setIsProcessed] = useState(false)
+    const [transactionData, setTransactionData] = useState(null);
+    const [selectedService, setSelectedService] = useState(null);
+    const [modalIsOpen, setModalIsOpen] = useState(false);
+    const [modalContent, setModalContent] = useState('');
+    const [isProcessed, setIsProcessed] = useState(false);
 
     const
         isSafari = () => {
