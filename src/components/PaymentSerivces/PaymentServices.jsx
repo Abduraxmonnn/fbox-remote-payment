@@ -10,11 +10,11 @@ import DefaultPaymentServices from '../DefaultPaymentService/DefaultPaymentServi
 
 Modal.setAppElement('#root');
 
-// const API = INIT_API
-const API = INIT_LOCAL_API
+const API = INIT_API
+// const API = INIT_LOCAL_API
 
-// const APIData = DATA_API
-const APIData = DATA_LOCAL_API
+const APIData = DATA_API
+// const APIData = DATA_LOCAL_API
 
 const paymentMethods = [
     {key: 'payme', name: 'Payme', icon: images.payme_square_icon},
