@@ -8,6 +8,7 @@ import {images} from '../../constants';
 import {INIT_API, INIT_LOCAL_API, DATA_API, DATA_LOCAL_API} from '../../api'
 import DefaultPaymentServices from '../DefaultPaymentService/DefaultPaymentService';
 import axios from "axios";
+import {API_URLS} from "../../api/apiConfig";
 
 Modal.setAppElement('#root');
 
@@ -53,18 +54,13 @@ export default function PaymentServices() {
     const fetchTransactionData = async () => {
         const body = {
             transaction_id: localStorage.getItem('transactionId'),
-        }
+        };
 
         try {
-            // const response = await APIData.post('/', body, {
-            //     headers: {
-            //         Authorization: `Token ${process.env.REACT_APP_SERVER_TOKEN}`,
-            //     },
-            // })
-
-            const response = await axios.post('https://api.fbox.uz/api/v1/order/remote/pay/data/', body, {
+            const response = await axios.post(API_URLS.DATA_API, body, {
                 headers: {
                     Authorization: `Token ${process.env.REACT_APP_SERVER_TOKEN}`,
+                    'Content-Type': 'application/json',
                 },
             });
 
@@ -76,13 +72,13 @@ export default function PaymentServices() {
                 marketLogo: response.data.company_logo,
                 marketBanner: response.data.company_banner,
                 transactionId: localStorage.getItem('transactionId'),
-            }
+            };
 
-            setTransactionData(data)
+            setTransactionData(data);
         } catch (err) {
-            console.error('Something went wrong:', err)
+            console.error('Something went wrong:', err);
         }
-    }
+    };
 
     useEffect(() => {
         AOS.init({duration: 2000})
