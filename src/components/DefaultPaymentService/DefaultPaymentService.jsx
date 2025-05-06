@@ -1,5 +1,4 @@
 import Modal from 'react-modal'
-import AOS from 'aos'
 import 'aos/dist/aos.css'
 import { ChevronRight } from 'lucide-react'
 import '../PaymentServices.scss'
