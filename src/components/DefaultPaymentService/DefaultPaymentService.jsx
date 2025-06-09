@@ -21,7 +21,7 @@ export default function DefaultPaymentServices() {
                 <div className="banner-overlay">
                     <div className="logo-container">
                         <div className="logo">
-                            <img src={images.default_store || "/placeholder.svg"} alt="store-image"
+                            <img src={images.test_store || "/placeholder.svg"} alt="store-image"
                                  className="store-image"/>
                         </div>
                     </div>
