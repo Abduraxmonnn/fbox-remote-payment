@@ -1,286 +1,212 @@
-@import url('https://fonts.googleapis.com/css2?family=Judson:wght@400;700&display=swap');
-
 .payment-page {
-  max-width: 28rem;
+  max-width: 440px;
   margin: 0 auto;
   background-color: white;
   overflow: hidden;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 .banner {
   position: relative;
   height: 12rem;
-  padding: 0 20px;
+  padding: 0 16px;
   box-sizing: border-box;
+  margin-top: 12px;
 }
 
 .banner-image {
-  width: 100%;
-  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  width: 406px;
+  height: 167px;
   object-fit: cover;
-  border-radius: 0 0 2rem 2rem;
+  border-radius: 2rem;
 }
 
 .banner-overlay {
   position: absolute;
   inset: 0;
-  left: 20px;
-  right: 20px; 
-  background-color: rgba(0, 0, 0, 0.4);
+  left: 16px;
+  right: 16px;
   display: flex;
-  align-items: flex-end;
-  padding: 1.5rem;
-  border-radius: 0 0 2rem 2rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 2rem;
 }
 
 .logo-container {
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 
 .logo {
   -webkit-backdrop-filter: blur(200px);
   backdrop-filter: blur(200px);
-  border-radius: 0.5rem;
   box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
-  margin-right: 0.5rem;
+  border-radius: 1rem;
+  width: 64px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .store-image {
-  width: 50px;
-  height: 50px;
-}
-
-.restaurant-name {
-  font-size: 2rem;
-  font-weight: 100;
-  color: white;
-  margin: 0;
-}
-
-.location-image {
-  width: 20px;
-  height: 20px;
-  margin-right: 0.5rem;
-}
-
-.restaurant-address {
-  display: flex;
-  align-items: center;
-  font-size: 0.875rem;
-  color: #e5e5e5;
-  margin: 0;
-}
-
-.button-section {
-  display: flex;
-  flex-direction: column;  
-  justify-content: flex-end;
-  margin-top: auto;
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
 }
 
 .content {
   padding: 1.5rem;
   display: flex;
   flex-direction: column;
-  height: calc(100vh - 12rem);
+  flex: 1;
 }
 
-.section-title {
-  color: #4a5568;
+.address-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.restaurant-address {
+  font-size: 12px;
+  font-weight: 500;
+  color: #040202;
+  margin: 0;
   text-align: center;
-  margin-bottom: 0.5rem;
+}
+
+.amount-container {
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
 }
 
 .total-amount {
-  font-size: 3rem;
-  font-weight: bold;
-  color: #000080;
+  font-size: 40px;
+  font-weight: 700;
+  color: #000000;
   text-align: center;
-  margin-bottom: 0.25rem;
+  line-height: 48px;
+  margin-bottom: 12px;
+}
+
+.currency {
+  font-size: 24px;
+  font-weight: 500;
+  margin-bottom: 34px;
+  margin-left: 10px;
 }
 
 .invoice-number {
-  font-size: 0.875rem;
-  color: #718096;
+  font-size: 1rem;
+  color: #888888;
   text-align: center;
+  margin-bottom: 2rem;
+}
+
+.section-title {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1;
+  color: #000000;
   margin-bottom: 1.5rem;
+  text-align: center;
 }
 
-.divider {
-  border-top: 1px solid #e2e8f0;
-  margin: 1rem 0;
+.payment-methods-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 2rem;
 }
 
-.payment-method {
+.payment-method-card {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  padding: 0.75rem;
-  background-color: #f7fafc;
-  border-radius: 0.5rem;
-  margin-bottom: 0.75rem;
+  padding: 1.5rem;
+  background-color: #ffffff;
+  border-radius: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  border: 1px solid #f0f0f0;
   cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.method-info {
-  display: flex;
-  align-items: center;
-  background-color: #f7fafc;
+.payment-method-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .method-icon {
-  width: 4rem;
-  height: 2rem;
-  border-radius: 9999px;
-  overflow: hidden;
-  margin-right: 0.75rem;
-  background-color: #f7fafc;
-}
-
-.payment-provider {
-  font-family: "Kantumruy Pro", serif;
-}
-
-.soon-payment-provider {
-  font-size: 0.9rem;
-  font-family: "Kantumruy Pro", serif;
-  color: red;
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.75rem;
 }
 
 .icon-image {
-  max-width: 400px;
-  width: 100%;
-  max-height: 400px;
-  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
   object-fit: contain;
 }
 
-.chevron {
-  color: #a0aec0;
+.payment-provider {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #000000;
 }
 
 .footer {
-  font-size: 0.75rem;
-  color: #a0aec0;
+  font-size: 0.875rem;
+  color: #888888;
   text-align: center;
-  margin-top: 1.5rem;
-}
-
-.loading {
-  position: fixed;
-  inset: 0px;
-  width: 12rem;
-  height: 5rem;
-  max-width: 100vw;
-  max-height: 100dvh;
-  margin: auto;
-}
-
-.payment-modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-  padding: 1rem;
-}
-
-.payment-modal {
-  position: relative;
-  background: white;
-  border-radius: 1rem;
-  padding: 0;
-  outline: none;
-  max-width: 90%;
-  width: 400px;
-  animation: modalFadeIn 0.3s ease-out;
-}
-
-.modal-content {
-  padding: 1.5rem;
-}
-
-.modal-title {
-  color: #1a1a1a;
-  font-size: 1.5rem;
-  font-weight: 600;
-  margin: 0 0 1.5rem 0;
-  text-align: center;
-}
-
-.modal-title.processed {
-  color: red;
-}
-
-.modal-buttons {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-}
-
-.modal-button {
-  width: 100%;
-  padding: 0.875rem;
-  border-radius: 0.75rem;
-  font-size: 1rem;
-  font-weight: 500;
-  border: none;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.primary-button {
-  background-color: #000080;
-  color: white;
-}
-
-.primary-button:hover {
-  background-color: #000066;
-}
-
-.secondary-button {
-  background-color: #f3f4f6;
-  color: #4b5563;
-}
-
-.secondary-button:hover {
-  background-color: #e5e7eb;
-}
-
-@keyframes modalFadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  margin-top: auto;
+  padding-top: 1.5rem;
 }
 
 /* Media query for mobile devices */
 @media (max-width: 480px) {
-  .payment-modal {
-    width: 100%;
-    margin: 1rem;
+  .payment-page {
+    max-width: 100%;
   }
 
-  .modal-content {
-    padding: 1.25rem;
+  .banner {
+    height: 10rem;
+    margin-top: 8px;
   }
 
-  .modal-button {
+  .logo {
+    width: 80px;
+    height: 80px;
+  }
+
+  .store-image {
+    width: 60px;
+    height: 60px;
+  }
+
+  .total-amount {
+    font-size: 2.5rem;
+  }
+
+  .currency {
+    font-size: 1.5rem;
+  }
+
+  .payment-methods-grid {
+    gap: 0.75rem;
+  }
+
+  .payment-method-card {
     padding: 1rem;
   }
-}
-
-/* Prevent background scrolling when modal is open */
-body.ReactModal__Body--open {
-  overflow: hidden;
 }
