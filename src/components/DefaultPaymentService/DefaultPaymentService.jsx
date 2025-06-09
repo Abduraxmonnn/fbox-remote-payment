@@ -2,6 +2,7 @@ import Modal from 'react-modal'
 import 'aos/dist/aos.css'
 import '../PaymentServices.scss'
 import {images} from '../../constants'
+import {useEffect, useState} from "react";
 
 Modal.setAppElement('#root')
 
@@ -13,7 +14,13 @@ const paymentMethods = [
 ]
 
 export default function DefaultPaymentServices() {
-    return (
+	const [theme, setTheme] = useState("cream"); // Default theme
+
+	useEffect(() => {
+		document.documentElement.setAttribute("data-theme", theme);
+	}, [theme]);
+
+	return (
         <div className="payment-page default-page">
             <div className="banner">
                 <img src={images.default_banner || "/placeholder.svg"} alt="Restaurant banner"
@@ -60,7 +67,7 @@ export default function DefaultPaymentServices() {
 									className="icon-image"
 								/>
 							</div>
-							<span className="payment-provider">{method.name}</span>
+							<span className={`payment-provider ${theme === 'dark' ? "popular-provider" : ""}`}>{method.name}</span>
 						</div>
 					))}
 				</div>
