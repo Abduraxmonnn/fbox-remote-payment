@@ -14,7 +14,7 @@ const paymentMethods = [
 ]
 
 export default function DefaultPaymentServices() {
-	const [theme, setTheme] = useState("cream"); // Default theme
+	const [theme, setTheme] = useState("light"); // Default theme
 
 	useEffect(() => {
 		document.documentElement.setAttribute("data-theme", theme);
