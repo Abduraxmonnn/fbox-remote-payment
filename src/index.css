@@ -1,17 +1,20 @@
 @import url('https://fonts.googleapis.com/css2?family=Judson:ital,wght@0,400;0,700;1,400&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Kantumruy+Pro:ital,wght@0,100..700;1,100..700&display=swap');
 
 :root {
-    --nunito-sans: "Kantumruy Pro", serif;
-    --libre-baskerville: "Libre Baskerville", serif;
-
     --color-lightgray: lightgray;
     --color-lightgreen: rgba(191, 216, 191, 0.49);
-    --color-black: #000;
+    --color-black: #040202;
     --color-white: #ffffff;
     --color-grey: #aaaaaa;
     --color-green: #4bb543;
     --color-navy: #171A64;
+
+    --bg-color: #ffffff;
+    --text-color: #040202;
+    --badge-color: #ff6b35;
+    --card-border-color: #f0f0f0;
+    --card-shadow: rgba(0, 0, 0, 0.05);
+    --inactive-payment-method-color: #EBEBEB;
 }
 
 * {
@@ -19,9 +22,41 @@
     padding: 0;
     margin: 0;
     scroll-behavior: smooth;
-    /* font-family: "Kantumruy Pro", serif; */
-    font-family: 'Judson', serif;
-    /* background-color: #fbf4ee; */
+    /*font-family: 'Judson', serif;*/
+    font-family: 'Futura', 'Trebuchet MS', Arial, sans-serif;
+}
+
+html,
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: background-color 0.3s ease, color 0.3s ease;
+    min-height: 100vh;
+}
+
+[data-theme="dark"] {
+    --bg-color: #040202;
+    --text-color: #ffffff;
+    --badge-color: #ff9f00;
+    --payment-method-color: #242426;
+    --popular-payment-method-color: #F4E7E2;
+    --inactive-payment-method-color: #4B4B4B;
+    --payment-method-border: #242426;
+    --payment-provider: #FFFFFF;
+    --popular-payment-provider: #040202;
+}
+
+[data-theme="cream"] {
+    --bg-color: #F4F2F0;
+    --text-color: var(--color-black);
+    --invoice-color: #8F8F8F;
+    --badge-color: #DAA520;
+    --payment-method-color: #FFFFFF;
+    --popular-payment-method-color: #FFFFFF;
+    --inactive-payment-method-color: #EBEBEB;
+    --payment-method-border: #f0f0f0;
+    --payment-provider: #000000;
+    --popular-payment-provider: #040202;
 }
 
 ul,
