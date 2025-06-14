@@ -11,7 +11,6 @@
 .banner {
   position: relative;
   height: 12rem;
-  //padding: 0 16px;
   box-sizing: border-box;
   margin-top: 12px;
   overflow: visible; // Allow the logo to overflow
@@ -22,6 +21,7 @@
   max-height: 100%;
   width: 406px;
   height: 167px;
+  padding: 0 10px;
   object-fit: cover;
   border-radius: 2rem;
 }
@@ -34,6 +34,7 @@
   display: flex;
   align-items: flex-end; // Align to bottom
   justify-content: center;
+  padding: 0 10px;
   border-radius: 2rem;
   pointer-events: none; // Optional: if you want clicks to pass through
 }
