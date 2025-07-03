@@ -121,6 +121,49 @@
   margin-bottom: 2rem;
 }
 
+.tip-title {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--text-color);
+  margin: 1.5rem 0 1rem;
+  text-align: start;
+}
+
+.tip-buttons {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 1.5rem;
+  justify-content: center;
+}
+
+.tip-button {
+  padding: 6px 16px;
+  border: none;
+  border-radius: 1rem;
+  background-color: #e0e0e0;
+  color: #333;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.tip-button:hover {
+  transform: translateY(-2px);
+}
+
+.tip-button.selected {
+  background-color: #ff6b35;
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+.tip-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #ff6b35;
+}
+
 .section-title {
   font-size: 16px;
   font-weight: 700;

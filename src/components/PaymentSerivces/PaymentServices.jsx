@@ -1,23 +1,23 @@
-import { useState, useEffect } from 'react';
+import {useState, useEffect} from 'react';
 import Modal from 'react-modal';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import '../PaymentServices.scss';
-import { images } from '../../constants';
-import { INIT_API, INIT_LOCAL_API, DATA_API, DATA_LOCAL_API } from '../../api';
+import {images} from '../../constants';
+import {INIT_API, INIT_LOCAL_API, DATA_API, DATA_LOCAL_API} from '../../api';
 import DefaultPaymentServices from '../DefaultPaymentService/DefaultPaymentService';
 
 Modal.setAppElement('#root');
 
-const API = INIT_API;
-// const API = INIT_LOCAL_API;
+// const API = INIT_API;
+const API = INIT_LOCAL_API;
 
-const APIData = DATA_API;
-// const APIData = DATA_LOCAL_API;
+// const APIData = DATA_API;
+const APIData = DATA_LOCAL_API;
 
 const paymentMethods = [
-    { key: 'payme', name: 'Payme', icon: images.payme_square_icon, isPopular: true },
-    { key: 'click', name: 'Click', icon: images.click_square_icon },
+    {key: 'payme', name: 'Payme', icon: images.payme_square_icon, isPopular: true},
+    {key: 'click', name: 'Click', icon: images.click_square_icon},
     {
         key: 'uzum',
         name: 'Uzum',
@@ -41,6 +41,7 @@ export default function PaymentServices() {
     const [modalContent, setModalContent] = useState('');
     const [isProcessed, setIsProcessed] = useState(false);
     const [theme, setTheme] = useState('light'); // Default theme
+    const [selectedTip, setSelectedTip] = useState(0); // State to track selected tip percentage
 
     useEffect(() => {
         if (transactionData?.s2pTheme) {
@@ -90,7 +91,7 @@ export default function PaymentServices() {
     };
 
     useEffect(() => {
-        AOS.init({ duration: 2000 });
+        AOS.init({duration: 2000});
         fetchTransactionData();
     }, []);
 
@@ -100,6 +101,18 @@ export default function PaymentServices() {
         }
     }, [transactionData]);
 
+    const handleTipSelect = (tip) => {
+        setSelectedTip(tip === selectedTip ? null : tip); // Toggle selection or deselect
+    };
+
+    const tipOptions = [
+        { label: 'Без чаевых', value: 0 },
+        { label: '5%', value: 5 },
+        { label: '10%', value: 10 },
+        { label: '15%', value: 15 },
+        { label: '20%', value: 20 },
+    ];
+
     const handleButtonClick = async (service) => {
         setSelectedService(service);
 
@@ -108,6 +121,7 @@ export default function PaymentServices() {
                 source: service,
                 order_id: transactionData.orderId,
                 transaction_id: transactionData.transactionId,
+                tip_percentage: selectedTip
             },
         };
 
@@ -182,6 +196,20 @@ export default function PaymentServices() {
                         </div>
 
                         <p className="invoice-number">Счет №{transactionData.orderId}</p>
+
+                        <h3 className="tip-title">Добавить чаевые</h3>
+                        <div className="tip-buttons">
+                            {tipOptions.map((tip) => (
+                                <button
+                                    key={tip.value || 'none'}
+                                    className={`tip-button ${selectedTip === tip.value ? 'selected' : ''}`}
+                                    onClick={() => handleTipSelect(tip.value)}
+                                    aria-label={`Select ${tip.label}`}
+                                >
+                                    {tip.label}
+                                </button>
+                            ))}
+                        </div>
 
                         <h3 className="section-title">Выберите способ оплаты</h3>
 
@@ -280,7 +308,7 @@ export default function PaymentServices() {
                     </div>
                 </div>
             ) : (
-                <DefaultPaymentServices />
+                <DefaultPaymentServices/>
             )}
         </div>
     );
