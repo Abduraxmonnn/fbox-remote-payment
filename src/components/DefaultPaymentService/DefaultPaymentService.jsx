@@ -63,7 +63,7 @@ export default function DefaultPaymentServices({ address, amount, invoiceNumber 
 
 				<p className="invoice-number">{invoiceNumber || 'Нет счета-фактуры'}</p>
 
-				<h3 className="tip-title">Добавить чаевые</h3>
+				<h3 className="tip-title">Оставьте чаевые</h3>
 				<div className="tip-buttons">
 					{tipOptions.map((tip) => (
 						<button

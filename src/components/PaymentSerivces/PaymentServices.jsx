@@ -197,7 +197,7 @@ export default function PaymentServices() {
 
                         <p className="invoice-number">Счет №{transactionData.orderId}</p>
 
-                        <h3 className="tip-title">Добавить чаевые</h3>
+                        <h3 className="tip-title">Оставьте чаевые</h3>
                         <div className="tip-buttons">
                             {tipOptions.map((tip) => (
                                 <button
