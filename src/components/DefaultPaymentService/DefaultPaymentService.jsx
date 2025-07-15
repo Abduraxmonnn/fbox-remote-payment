@@ -63,19 +63,19 @@ export default function DefaultPaymentServices({ address, amount, invoiceNumber 
 
 				<p className="invoice-number">{invoiceNumber || 'Нет счета-фактуры'}</p>
 
-				<h3 className="tip-title">Оставьте чаевые</h3>
-				<div className="tip-buttons">
-					{tipOptions.map((tip) => (
-						<button
-							key={tip.value || 'none'}
-							className={`tip-button ${selectedTip === tip.value ? 'selected' : ''}`}
-							onClick={() => handleTipSelect(tip.value)}
-							aria-label={`Select ${tip.label}`}
-						>
-							{tip.label}
-						</button>
-					))}
-				</div>
+				{/*<h3 className="tip-title">Оставьте чаевые</h3>*/}
+				{/*<div className="tip-buttons">*/}
+				{/*	{tipOptions.map((tip) => (*/}
+				{/*		<button*/}
+				{/*			key={tip.value || 'none'}*/}
+				{/*			className={`tip-button ${selectedTip === tip.value ? 'selected' : ''}`}*/}
+				{/*			onClick={() => handleTipSelect(tip.value)}*/}
+				{/*			aria-label={`Select ${tip.label}`}*/}
+				{/*		>*/}
+				{/*			{tip.label}*/}
+				{/*		</button>*/}
+				{/*	))}*/}
+				{/*</div>*/}
 
 				<h3 className="section-title">Выберите способ оплаты</h3>
 

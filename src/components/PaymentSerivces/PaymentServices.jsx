@@ -9,11 +9,11 @@ import DefaultPaymentServices from '../DefaultPaymentService/DefaultPaymentServi
 
 Modal.setAppElement('#root');
 
-const API = INIT_API;
-// const API = INIT_LOCAL_API;
+// const API = INIT_API;
+const API = INIT_LOCAL_API;
 
-const APIData = DATA_API;
-// const APIData = DATA_LOCAL_API;
+// const APIData = DATA_API;
+const APIData = DATA_LOCAL_API;
 
 const paymentMethods = [
     {key: 'payme', name: 'Payme', icon: images.payme_square_icon, isPopular: true},
@@ -197,19 +197,19 @@ export default function PaymentServices() {
 
                         <p className="invoice-number">Счет №{transactionData.orderId}</p>
 
-                        <h3 className="tip-title">Оставьте чаевые</h3>
-                        <div className="tip-buttons">
-                            {tipOptions.map((tip) => (
-                                <button
-                                    key={tip.value || 'none'}
-                                    className={`tip-button ${selectedTip === tip.value ? 'selected' : ''}`}
-                                    onClick={() => handleTipSelect(tip.value)}
-                                    aria-label={`Select ${tip.label}`}
-                                >
-                                    {tip.label}
-                                </button>
-                            ))}
-                        </div>
+                        {/*<h3 className="tip-title">Оставьте чаевые</h3>*/}
+                        {/*<div className="tip-buttons">*/}
+                        {/*    {tipOptions.map((tip) => (*/}
+                        {/*        <button*/}
+                        {/*            key={tip.value || 'none'}*/}
+                        {/*            className={`tip-button ${selectedTip === tip.value ? 'selected' : ''}`}*/}
+                        {/*            onClick={() => handleTipSelect(tip.value)}*/}
+                        {/*            aria-label={`Select ${tip.label}`}*/}
+                        {/*        >*/}
+                        {/*            {tip.label}*/}
+                        {/*        </button>*/}
+                        {/*    ))}*/}
+                        {/*</div>*/}
 
                         <h3 className="section-title">Выберите способ оплаты</h3>
 
