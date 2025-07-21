@@ -197,19 +197,19 @@ export default function PaymentServices() {
 
                         <p className="invoice-number">Счет №{transactionData.orderId}</p>
 
-                        <h3 className="tip-title">Оставьте чаевые</h3>
-                        <div className="tip-buttons">
-                            {tipOptions.map((tip) => (
-                                <button
-                                    key={tip.value || 'none'}
-                                    className={`tip-button ${selectedTip === tip.value ? 'selected' : ''}`}
-                                    onClick={() => handleTipSelect(tip.value)}
-                                    aria-label={`Select ${tip.label}`}
-                                >
-                                    {tip.label}
-                                </button>
-                            ))}
-                        </div>
+                        {/*<h3 className="tip-title">Оставьте чаевые</h3>*/}
+                        {/*<div className="tip-buttons">*/}
+                        {/*    {tipOptions.map((tip) => (*/}
+                        {/*        <button*/}
+                        {/*            key={tip.value || 'none'}*/}
+                        {/*            className={`tip-button ${selectedTip === tip.value ? 'selected' : ''}`}*/}
+                        {/*            onClick={() => handleTipSelect(tip.value)}*/}
+                        {/*            aria-label={`Select ${tip.label}`}*/}
+                        {/*        >*/}
+                        {/*            {tip.label}*/}
+                        {/*        </button>*/}
+                        {/*    ))}*/}
+                        {/*</div>*/}
 
                         <h3 className="section-title">Выберите способ оплаты</h3>
 
