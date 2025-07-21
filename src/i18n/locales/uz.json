@@ -9,7 +9,7 @@
   "default": {
     "addressNotProvided": "Manzil ko'rsatilmagan",
     "invoiceMissing": "Hisob-faktura yo'q",
-    "noTip": "Choychaqasiz",
+    "noTip": "Choychaqasiz to'lov",
     "powered_by": "scan2pay - FiscalBox tomonidan"
   },
   "main": {
