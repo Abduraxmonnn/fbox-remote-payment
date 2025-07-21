@@ -6,8 +6,8 @@ import '../PaymentServices.scss';
 import {images} from '../../constants';
 import {INIT_API, INIT_LOCAL_API, DATA_API, DATA_LOCAL_API} from '../../api';
 import DefaultPaymentServices from '../DefaultPaymentService/DefaultPaymentService';
-import LangSwitcher from "../../i18n/config";
 import {useTranslation} from "react-i18next";
+import Localization from "../Localization/Localization";
 
 Modal.setAppElement('#root');
 
@@ -154,7 +154,7 @@ export default function PaymentServices() {
                 response.data.status === 'error' &&
                 response.data.message === 'Transaction already Processed.'
             ) {
-                setErrorMessage('Транзакция уже обработана.');
+                setErrorMessage(t("main.alreadyProcessed"));
                 setTimeout(() => setErrorMessage(''), 5000);
             } else {
                 console.log('Response status:', response.data.status);
@@ -179,7 +179,7 @@ export default function PaymentServices() {
             {transactionData ? (
                 <div className="payment-page default-page">
                     <div className="banner">
-                        <LangSwitcher />
+                        <Localization/>
                         <img
                             src={transactionData.marketBanner || images.default_banner}
                             alt="Restaurant banner"
@@ -201,7 +201,7 @@ export default function PaymentServices() {
                     <div className="content">
                         <div className="address-container">
                             <p className="restaurant-address">
-                                {transactionData.marketAddress || 'Узбекистан'}
+                                {transactionData.marketAddress || t("main.marketAddress")}
                             </p>
                         </div>
 
@@ -210,13 +210,13 @@ export default function PaymentServices() {
                                 {transactionData.amount
                                     .toFixed(2)
                                     .replace(/\d(?=(\d{3})+\.)/g, '$& ')}{' '}
-                                <span className="currency">сум</span>
+                                <span className="currency">{t("base.currency")}</span>
                             </p>
                         </div>
 
                         <p className="invoice-number">{t("main.invoiceNumber")} №{transactionData.orderId}</p>
 
-                        <h3 className="tip-title">Оставьте чаевые</h3>
+                        <h3 className="tip-title">{t("base.leaveTip")}</h3>
                         <div className="tip-buttons">
                             {tipOptions.map((tip) => (
                                 <button
@@ -230,7 +230,7 @@ export default function PaymentServices() {
                             ))}
                         </div>
 
-                        <h3 className="section-title">Выберите способ оплаты</h3>
+                        <h3 className="section-title">{t("base.selectPaymentMethod")}</h3>
 
                         <div className="payment-methods-grid">
                             {paymentMethods.map((method) => (
@@ -245,12 +245,12 @@ export default function PaymentServices() {
                                             : undefined
                                     }
                                 >
-                                    {method.isPopular && <div className="popular-badge">Популярный</div>}
+                                    {method.isPopular && <div className="popular-badge">{t("base.popular")}</div>}
                                     {(method.comingSoon) && (
-                                        <div className="soon-badge">Скоро</div>
+                                        <div className="soon-badge">{t("base.comingSoon")}</div>
                                     )}
                                     {(method.disableWhenTip && selectedTip > 0) && (
-                                        <div className="soon-badge disable-badge">Недоступно с чаевыми</div>
+                                        <div className="soon-badge disable-badge">{t("main.notAvailableWithTip")}</div>
                                     )}
                                     <div className="method-icon">
                                         <img
@@ -285,7 +285,7 @@ export default function PaymentServices() {
                                 overlayClassName="payment-modal-overlay"
                             >
                                 <div className="modal-content">
-                                    <h2 className="modal-title">Ссылка для оплаты</h2>
+                                    <h2 className="modal-title">{t("main.payLinkTitle")}</h2>
                                     <div className="modal-buttons">
                                         <button
                                             className="modal-button primary-button"
@@ -294,13 +294,13 @@ export default function PaymentServices() {
                                                 closeModal();
                                             }}
                                         >
-                                            Открыть в новой вкладке
+                                            {t("main.openNewTab")}
                                         </button>
                                         <button
                                             className="modal-button secondary-button"
                                             onClick={closeModal}
                                         >
-                                            Закрывать
+                                            {t("main.close")}
                                         </button>
                                     </div>
                                 </div>
@@ -316,14 +316,14 @@ export default function PaymentServices() {
                             >
                                 <div className="modal-content">
                                     <h2 className={`modal-title${isProcessed ? ' processed' : ''}`}>
-                                        Транзакция уже обработана.
+                                        {t("main.alreadyProcessed")}
                                     </h2>
                                     <div className="modal-buttons">
                                         <button
                                             className="modal-button secondary-button"
                                             onClick={closeModal}
                                         >
-                                            Закрывать
+                                            {t("main.close")}
                                         </button>
                                     </div>
                                 </div>

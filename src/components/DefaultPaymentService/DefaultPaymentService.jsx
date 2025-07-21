@@ -61,13 +61,13 @@ export default function DefaultPaymentServices({ address, amount, invoiceNumber 
 
 				<div className="amount-container">
 					<p className="total-amount">
-						{amount || 0} <span className="currency">{t("default.currency")}</span>
+						{amount || 0} <span className="currency">{t("base.currency")}</span>
 					</p>
 				</div>
 
 				<p className="invoice-number">{invoiceNumber || t("default.invoiceMissing")}</p>
 
-				<h3 className="tip-title">{t("default.leaveTip")}</h3>
+				<h3 className="tip-title">{t("base.leaveTip")}</h3>
 				<div className="tip-buttons">
 					{tipOptions.map((tip) => (
 						<button
@@ -81,7 +81,7 @@ export default function DefaultPaymentServices({ address, amount, invoiceNumber 
 					))}
 				</div>
 
-				<h3 className="section-title">{t("default.selectPaymentMethod")}</h3>
+				<h3 className="section-title">{t("base.selectPaymentMethod")}</h3>
 
 				<div className="payment-methods-grid">
 					{paymentMethods.map((method) => (
@@ -92,8 +92,8 @@ export default function DefaultPaymentServices({ address, amount, invoiceNumber 
 							role="button"
 							aria-label={`Select ${method.name} payment method${method.comingSoon ? ' (Coming Soon)' : ''}`}
 						>
-							{method.isPopular && <div className="popular-badge">{t("default.popular")}</div>}
-							{method.comingSoon && <div className="soon-badge">{t("default.comingSoon")}</div>}
+							{method.isPopular && <div className="popular-badge">{t("base.popular")}</div>}
+							{method.comingSoon && <div className="soon-badge">{t("base.comingSoon")}</div>}
 							<div className="method-icon">
 								<img
 									src={method.comingSoon ? method.inactive_icon || '/placeholder.svg' : method.icon || '/placeholder.svg'}

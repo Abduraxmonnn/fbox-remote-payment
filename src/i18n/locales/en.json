@@ -1,21 +1,24 @@
 {
-  "default": {
-    "addressNotProvided": "Address not provided",
-    "invoiceMissing": "No invoice",
-    "leaveTip": "Leave a Tip",
-    "noTip": "Without Tip",
+  "base": {
+    "currency": "uzs",
     "selectPaymentMethod": "Select a Payment Method",
     "popular": "Popular",
     "comingSoon": "Soon",
-    "powered_by": "scan2pay powered by FiscalBox",
-    "currency": "uzs"
+    "leaveTip": "Leave a Tip"
+  },
+  "default": {
+    "addressNotProvided": "Address not provided",
+    "invoiceMissing": "No invoice",
+    "noTip": "Without Tip",
+    "powered_by": "scan2pay powered by FiscalBox"
   },
   "main": {
-    "already_processed": "Transaction already processed.",
-    "pay_link_title": "Payment Link",
-    "open_new_tab": "Open in New Tab",
+    "marketAddress": "Uzbekistan",
+    "alreadyProcessed": "Transaction already processed.",
+    "payLinkTitle": "Payment Link",
+    "openNewTab": "Open in New Tab",
     "close": "Close",
-    "not_available_with_tip": "Unavailable with tip",
+    "notAvailableWithTip": "Unavailable with tip",
     "invoiceNumber": "Invoice"
   }
 }

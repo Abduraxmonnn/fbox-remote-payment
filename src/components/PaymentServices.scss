@@ -207,17 +207,16 @@
 
 .popular-badge {
   position: absolute;
-  width: 63px;
-  height: 16px;
   top: 0;
   right: 0;
+  width: 63px;
+  height: 20px;
   background-color: #ff6b35;
   color: #ffffff;
-  font-weight: 5;
+  font-weight: 500;
   font-size: 8px;
-  line-height: 16px;
-  letter-spacing: 0px;
-  vertical-align: middle;
+  line-height: 20px;
+  text-align: center;
   padding: 0 8px;
   border-radius: 0 0 0 12px;
   white-space: nowrap;
@@ -240,26 +239,32 @@
 
 .soon-badge {
   position: absolute;
-  width: 56px;
-  height: 20px;
   top: 0;
   right: 0;
+  width: 56px;
+  height: 20px;
   background-color: #ff6b35;
   color: #ffffff;
-  font-weight: 5;
+  font-weight: 500;
   font-size: 8px;
-  line-height: 16px;
-  letter-spacing: 0px;
-  vertical-align: middle;
-  padding: 0 16px;
+  line-height: 20px;
+  text-align: center;
   border-radius: 0 0 0 12px;
   white-space: nowrap;
   z-index: 1;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
 }
 
+//.disable-badge {
+//  width: 110px;
+//}
+
 .disable-badge {
-  width: 110px;
+  width: auto;
+  padding: 0 8px;
+  height: 20px;
+  background-color: #999; /* Optional: change color as needed */
+  color: #fff;
 }
 
 .payment-method-card:not(.coming-soon-card):hover {

@@ -1,21 +1,24 @@
 {
-  "default": {
-    "addressNotProvided": "Адрес не указан",
-    "invoiceMissing": "Нет счета-фактуры",
-    "leaveTip": "Оставьте чаевые",
-    "noTip": "Без чаевых",
+  "base": {
+    "currency": "сум",
     "selectPaymentMethod": "Выберите способ оплаты",
     "popular": "Популярный",
     "comingSoon": "Скоро",
-    "powered_by": "scan2pay powered by FiscalBox",
-    "currency": "сум"
+    "leaveTip": "Оставьте чаевые"
+  },
+  "default": {
+    "addressNotProvided": "Адрес не указан",
+    "invoiceMissing": "Нет счета-фактуры",
+    "noTip": "Без чаевых",
+    "powered_by": "scan2pay powered by FiscalBox"
   },
   "main": {
-    "already_processed": "Транзакция уже обработана.",
-    "pay_link_title": "Ссылка для оплаты",
-    "open_new_tab": "Открыть в новой вкладке",
-    "close": "Закрывать",
-    "not_available_with_tip": "Недоступно с чаевыми",
-    "invoiceNumber": "Счет"
+    "marketAddress": "Узбекистан",
+    "alreadyProcessed": "Транзакция уже обработана.",
+    "payLinkTitle": "Ссылка для оплаты",
+    "openNewTab": "Открыть в новой вкладке",
+    "close": "Закрыть",
+    "notAvailableWithTip": "Недоступно с чаевыми",
+    "invoiceNumber": "Счет-фактура"
   }
 }
