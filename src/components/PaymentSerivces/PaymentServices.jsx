@@ -17,7 +17,13 @@ const APIData = DATA_API;
 
 const paymentMethods = [
     {key: 'payme', name: 'Payme', icon: images.payme_square_icon, isPopular: true},
-    {key: 'click', name: 'Click', icon: images.click_square_icon},
+    {
+        key: 'click',
+        name: 'Click',
+        icon: images.click_square_icon,
+        inactive_icon: images.inactive_click_square_icon,
+        disableWhenTip: true,
+    },
     {
         key: 'uzum',
         name: 'Uzum',
@@ -42,6 +48,7 @@ export default function PaymentServices() {
     const [isProcessed, setIsProcessed] = useState(false);
     const [theme, setTheme] = useState('light'); // Default theme
     const [selectedTip, setSelectedTip] = useState(0); // State to track selected tip percentage
+    const [errorMessage, setErrorMessage] = useState('');
 
     useEffect(() => {
         if (transactionData?.s2pTheme) {
@@ -106,11 +113,11 @@ export default function PaymentServices() {
     };
 
     const tipOptions = [
-        { label: 'Без чаевых', value: 0 },
-        { label: '5%', value: 5 },
-        { label: '10%', value: 10 },
-        { label: '15%', value: 15 },
-        { label: '20%', value: 20 },
+        {label: 'Без чаевых', value: 0},
+        {label: '5%', value: 5},
+        {label: '10%', value: 10},
+        {label: '15%', value: 15},
+        {label: '20%', value: 20},
     ];
 
     const handleButtonClick = async (service) => {
@@ -140,9 +147,12 @@ export default function PaymentServices() {
                 } else {
                     window.open(url, '_blank');
                 }
-            } else if (response.data.status === 'error') {
-                setIsProcessed(true);
-                setModalIsOpen(true);
+            } else if (
+                response.data.status === 'error' &&
+                response.data.message === 'Transaction already Processed.'
+            ) {
+                setErrorMessage('Транзакция уже обработана.');
+                setTimeout(() => setErrorMessage(''), 5000);
             } else {
                 console.log('Response status:', response.data.status);
                 console.log('Message:', response.data.message);
@@ -158,6 +168,11 @@ export default function PaymentServices() {
 
     return (
         <div className="payment-page">
+            {errorMessage && (
+                <div className="toast-error">
+                    {errorMessage}
+                </div>
+            )}
             {transactionData ? (
                 <div className="payment-page default-page">
                     <div className="banner">
@@ -217,21 +232,26 @@ export default function PaymentServices() {
                             {paymentMethods.map((method) => (
                                 <div
                                     key={method.name}
-                                    className={`payment-method-card ${
-                                        method.isPopular ? 'popular-card' : ''
-                                    } ${method.comingSoon ? 'coming-soon-card' : ''}`}
+                                    className={`payment-method-card 
+                                    ${method.isPopular ? 'popular-card' : ''} 
+                                    ${method.comingSoon || (method.disableWhenTip && selectedTip > 0) ? 'coming-soon-card' : ''}`}
                                     onClick={
-                                        !method.comingSoon
+                                        !method.comingSoon && !(method.disableWhenTip && selectedTip > 0)
                                             ? () => handleButtonClick(method.key)
                                             : undefined
                                     }
                                 >
                                     {method.isPopular && <div className="popular-badge">Популярный</div>}
-                                    {method.comingSoon && <div className="soon-badge">Скоро</div>}
+                                    {(method.comingSoon) && (
+                                        <div className="soon-badge">Скоро</div>
+                                    )}
+                                    {(method.disableWhenTip && selectedTip > 0) && (
+                                        <div className="soon-badge disable-badge">Недоступно с чаевыми</div>
+                                    )}
                                     <div className="method-icon">
                                         <img
                                             src={
-                                                method.comingSoon
+                                                method.comingSoon || (method.disableWhenTip && selectedTip > 0)
                                                     ? method.inactive_icon || '/placeholder.svg'
                                                     : method.icon || '/placeholder.svg'
                                             }
@@ -244,8 +264,8 @@ export default function PaymentServices() {
                                             theme === 'dark' && method.isPopular ? 'popular-provider' : ''
                                         }`}
                                     >
-                    {method.name}
-                  </span>
+                                        {method.name}
+                                    </span>
                                 </div>
                             ))}
                         </div>
