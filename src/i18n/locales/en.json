@@ -1,6 +1,6 @@
 {
   "base": {
-    "currency": "uzs",
+    "currency": "sum",
     "selectPaymentMethod": "Select a Payment Method",
     "popular": "Popular",
     "comingSoon": "Soon",
