@@ -6,6 +6,8 @@ import '../PaymentServices.scss';
 import {images} from '../../constants';
 import {INIT_API, INIT_LOCAL_API, DATA_API, DATA_LOCAL_API} from '../../api';
 import DefaultPaymentServices from '../DefaultPaymentService/DefaultPaymentService';
+import LangSwitcher from "../../i18n/config";
+import {useTranslation} from "react-i18next";
 
 Modal.setAppElement('#root');
 
@@ -41,6 +43,7 @@ const paymentMethods = [
 ];
 
 export default function PaymentServices() {
+    const {t} = useTranslation();
     const [transactionData, setTransactionData] = useState(null);
     const [selectedService, setSelectedService] = useState(null);
     const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -176,6 +179,7 @@ export default function PaymentServices() {
             {transactionData ? (
                 <div className="payment-page default-page">
                     <div className="banner">
+                        <LangSwitcher />
                         <img
                             src={transactionData.marketBanner || images.default_banner}
                             alt="Restaurant banner"
@@ -210,7 +214,7 @@ export default function PaymentServices() {
                             </p>
                         </div>
 
-                        <p className="invoice-number">Счет №{transactionData.orderId}</p>
+                        <p className="invoice-number">{t("main.invoiceNumber")} №{transactionData.orderId}</p>
 
                         <h3 className="tip-title">Оставьте чаевые</h3>
                         <div className="tip-buttons">

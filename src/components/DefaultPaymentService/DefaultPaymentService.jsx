@@ -1,6 +1,8 @@
 import { images } from '../../constants';
 import { useEffect, useState } from 'react';
 import '../PaymentServices.scss';
+import {useTranslation} from "react-i18next";
+import Localization from "../Localization/Localization";
 
 const paymentMethods = [
 	{ name: 'Payme', icon: images.payme_square_icon, isPopular: true },
@@ -10,6 +12,7 @@ const paymentMethods = [
 ];
 
 export default function DefaultPaymentServices({ address, amount, invoiceNumber }) {
+	const { t } = useTranslation();
 	const [theme, setTheme] = useState('light');
 	const [selectedTip, setSelectedTip] = useState(null); // State to track selected tip percentage
 
@@ -22,7 +25,7 @@ export default function DefaultPaymentServices({ address, amount, invoiceNumber 
 	};
 
 	const tipOptions = [
-		{ label: 'Без чаевых', value: null },
+		{ label: `${t("default.noTip")}`, value: null },
 		{ label: '5%', value: 5 },
 		{ label: '10%', value: 10 },
 		{ label: '15%', value: 15 },
@@ -32,6 +35,7 @@ export default function DefaultPaymentServices({ address, amount, invoiceNumber 
 	return (
 		<div className="payment-page default-page">
 			<div className="banner">
+				<Localization/>
 				<img
 					src={images.default_banner || '/placeholder.svg'}
 					alt="Restaurant banner"
@@ -52,18 +56,18 @@ export default function DefaultPaymentServices({ address, amount, invoiceNumber 
 
 			<div className="content">
 				<div className="address-container">
-					<p className="restaurant-address">{address || 'Адрес не указан'}</p>
+					<p className="restaurant-address">{address || t("default.addressNotProvided")}</p>
 				</div>
 
 				<div className="amount-container">
 					<p className="total-amount">
-						{amount || 0} <span className="currency">сум</span>
+						{amount || 0} <span className="currency">{t("default.currency")}</span>
 					</p>
 				</div>
 
-				<p className="invoice-number">{invoiceNumber || 'Нет счета-фактуры'}</p>
+				<p className="invoice-number">{invoiceNumber || t("default.invoiceMissing")}</p>
 
-				<h3 className="tip-title">Оставьте чаевые</h3>
+				<h3 className="tip-title">{t("default.leaveTip")}</h3>
 				<div className="tip-buttons">
 					{tipOptions.map((tip) => (
 						<button
@@ -77,7 +81,7 @@ export default function DefaultPaymentServices({ address, amount, invoiceNumber 
 					))}
 				</div>
 
-				<h3 className="section-title">Выберите способ оплаты</h3>
+				<h3 className="section-title">{t("default.selectPaymentMethod")}</h3>
 
 				<div className="payment-methods-grid">
 					{paymentMethods.map((method) => (
@@ -88,8 +92,8 @@ export default function DefaultPaymentServices({ address, amount, invoiceNumber 
 							role="button"
 							aria-label={`Select ${method.name} payment method${method.comingSoon ? ' (Coming Soon)' : ''}`}
 						>
-							{method.isPopular && <div className="popular-badge">Популярный</div>}
-							{method.comingSoon && <div className="soon-badge">Скоро</div>}
+							{method.isPopular && <div className="popular-badge">{t("default.popular")}</div>}
+							{method.comingSoon && <div className="soon-badge">{t("default.comingSoon")}</div>}
 							<div className="method-icon">
 								<img
 									src={method.comingSoon ? method.inactive_icon || '/placeholder.svg' : method.icon || '/placeholder.svg'}

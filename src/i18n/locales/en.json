@@ -1,0 +1,21 @@
+{
+  "default": {
+    "addressNotProvided": "Address not provided",
+    "invoiceMissing": "No invoice",
+    "leaveTip": "Leave a Tip",
+    "noTip": "Without Tip",
+    "selectPaymentMethod": "Select a Payment Method",
+    "popular": "Popular",
+    "comingSoon": "Soon",
+    "powered_by": "scan2pay powered by FiscalBox",
+    "currency": "uzs"
+  },
+  "main": {
+    "already_processed": "Transaction already processed.",
+    "pay_link_title": "Payment Link",
+    "open_new_tab": "Open in New Tab",
+    "close": "Close",
+    "not_available_with_tip": "Unavailable with tip",
+    "invoiceNumber": "Invoice"
+  }
+}

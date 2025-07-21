@@ -1,0 +1,21 @@
+{
+  "default": {
+    "addressNotProvided": "Manzil ko'rsatilmagan",
+    "invoiceMissing": "Hisob-faktura mavjud emas",
+    "leaveTip": "Choychaqa qoldiring",
+    "noTip": "Choychaqasiz to'lo'v",
+    "selectPaymentMethod": "Toʻlov usulini tanlang",
+    "popular": "Ommabop",
+    "comingSoon": "Tez orada",
+    "powered_by": "scan2pay, FiscalBox tomonidan",
+    "currency": "so'm"
+  },
+  "main": {
+    "already_processed": "Tranzaksiya allaqachon bajarilgan.",
+    "pay_link_title": "Toʻlov havolasi",
+    "open_new_tab": "Yangi oynada ochish",
+    "close": "Yopish",
+    "not_available_with_tip": "Choychaqa bilan mavjud emas",
+    "invoiceNumber": "Hisob"
+  }
+}
