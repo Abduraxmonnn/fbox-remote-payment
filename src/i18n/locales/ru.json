@@ -8,7 +8,7 @@
   },
   "default": {
     "addressNotProvided": "Адрес не указан",
-    "invoiceMissing": "Нет счета-фактуры",
+    "invoiceMissing": "Нет Номер заказа",
     "noTip": "Без чаевых",
     "powered_by": "scan2pay powered by FiscalBox"
   },
@@ -19,6 +19,6 @@
     "openNewTab": "Открыть в новой вкладке",
     "close": "Закрыть",
     "notAvailableWithTip": "Недоступно с чаевыми",
-    "invoiceNumber": "Счет-фактура"
+    "invoiceNumber": "Заказ"
   }
 }
