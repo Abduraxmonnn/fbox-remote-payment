@@ -16,6 +16,7 @@ import default_banner from '../assets/images/defaults/default-banner.jpg'
 import default_store from '../assets/images/defaults/default-store.png'
 import inactive_uzum_square_icon from "../assets/images/inactive_providers_icons/grey_uzum_icon.png"
 import inactive_anorbank_square_icon from "../assets/images/inactive_providers_icons/grey_anorbank_icon.png"
+import inactive_click_square_icon from "../assets/images/inactive_providers_icons/grey_click_icon.png"
 
 export const images = {
 	payme_icon,
@@ -36,4 +37,5 @@ export const images = {
 	default_store,
 	inactive_uzum_square_icon,
 	inactive_anorbank_square_icon,
+	inactive_click_square_icon,
 }
