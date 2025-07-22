@@ -8,7 +8,7 @@
   },
   "default": {
     "addressNotProvided": "Manzil ko'rsatilmagan",
-    "invoiceMissing": "Hisob-faktura yo'q",
+    "invoiceMissing": "Buyurtma raqami yo'q",
     "noTip": "Choychaqasiz to'lov",
     "powered_by": "scan2pay - FiscalBox tomonidan"
   },
@@ -19,6 +19,6 @@
     "openNewTab": "Yangi oynada ochish",
     "close": "Yopish",
     "notAvailableWithTip": "Choychaqa bilan mavjud emas",
-    "invoiceNumber": "Hisob-faktura"
+    "invoiceNumber": "Buyurtma raqami"
   }
 }
