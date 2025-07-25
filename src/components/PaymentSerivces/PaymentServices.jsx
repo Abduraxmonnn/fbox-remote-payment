@@ -8,6 +8,7 @@ import {INIT_API, INIT_LOCAL_API, DATA_API, DATA_LOCAL_API} from '../../api';
 import DefaultPaymentServices from '../DefaultPaymentService/DefaultPaymentService';
 import {useTranslation} from "react-i18next";
 import Localization from "../Localization/Localization";
+import AnimatedAmount from "../AnimatedAmount/AnimatedAmount";
 
 Modal.setAppElement('#root');
 
@@ -206,10 +207,17 @@ export default function PaymentServices() {
                         </div>
 
                         <div className="amount-container">
+                            {/*<p className="total-amount">*/}
+                            {/*    {transactionData.amount*/}
+                            {/*        .toFixed(2)*/}
+                            {/*        .replace(/\d(?=(\d{3})+\.)/g, '$& ')}{' '}*/}
+                            {/*    <span className="currency">{t("base.currency")}</span>*/}
+                            {/*</p>*/}
                             <p className="total-amount">
-                                {transactionData.amount
-                                    .toFixed(2)
-                                    .replace(/\d(?=(\d{3})+\.)/g, '$& ')}{' '}
+                                <AnimatedAmount
+                                    baseAmount={transactionData.amount}
+                                    tipPercentage={selectedTip}
+                                />{' '}
                                 <span className="currency">{t("base.currency")}</span>
                             </p>
                         </div>
