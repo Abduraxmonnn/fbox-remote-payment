@@ -7,7 +7,8 @@
     "leaveTip": "Оставьте чаевые",
     "customTip": "Указать свои чаевые",
     "customTipPlaceholder": "Сумма",
-    "manual": "Вручную"
+    "manual": "Вручную",
+    "paymentError": "Что-то пошло не так"
   },
   "default": {
     "addressNotProvided": "Адрес не указан",
