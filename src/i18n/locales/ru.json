@@ -6,7 +6,8 @@
     "comingSoon": "Скоро",
     "leaveTip": "Оставьте чаевые",
     "customTip": "Указать свои чаевые",
-    "customTipPlaceholder": "например: 25000"
+    "customTipPlaceholder": "Сумма",
+    "manual": "Вручную"
   },
   "default": {
     "addressNotProvided": "Адрес не указан",
@@ -21,6 +22,8 @@
     "openNewTab": "Открыть в новой вкладке",
     "close": "Закрыть",
     "notAvailableWithTip": "Недоступно с чаевыми",
-    "invoiceNumber": "Заказ"
+    "invoiceNumber": "Заказ",
+    "initAmount": "Счет",
+    "tipAmount": "Чаевые"
   }
 }

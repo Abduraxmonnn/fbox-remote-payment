@@ -1,14 +1,16 @@
 import {useState, useEffect} from 'react';
 import Modal from 'react-modal';
+import {Save} from 'lucide-react';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-import '../PaymentServices.scss';
+import {FcOk} from "react-icons/fc";
 import {images} from '../../constants';
 import {INIT_API, INIT_LOCAL_API, DATA_API, DATA_LOCAL_API} from '../../api';
 import DefaultPaymentServices from '../DefaultPaymentService/DefaultPaymentService';
 import {useTranslation} from "react-i18next";
 import Localization from "../../components/Localization/Localization";
 import AnimatedAmount from "../../components/AnimatedAmount/AnimatedAmount";
+import '../PaymentServices.scss';
 
 Modal.setAppElement('#root');
 
@@ -51,9 +53,10 @@ export default function PaymentServices() {
     const [modalContent, setModalContent] = useState('');
     const [isProcessed, setIsProcessed] = useState(false);
     const [theme, setTheme] = useState('light'); // Default theme
-    const [selectedTip, setSelectedTip] = useState(0); // State to track selected tip percentage
+    const [selectedTip, setSelectedTip] = useState(null);
     const [customTipAmount, setCustomTipAmount] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
+    const [isManualTipConfirmed, setIsManualTipConfirmed] = useState(false);
 
     useEffect(() => {
         if (transactionData?.s2pTheme) {
@@ -114,12 +117,19 @@ export default function PaymentServices() {
     }, [transactionData]);
 
     const handleTipSelect = (tip) => {
-        setSelectedTip(tip === selectedTip ? null : tip); // Toggle selection or deselect
-        setCustomTipAmount(''); // Clear custom tip when using presets
+        setIsManualTipConfirmed(false);
+        if (tip === 'manual') {
+            setSelectedTip('manual');
+            setCustomTipAmount('');
+        } else {
+            setSelectedTip(tip);
+            setCustomTipAmount('');
+        }
     };
 
     const tipOptions = [
-        {label: 'Без чаевых', value: 0},
+        {label: 'Вручную', value: 'manual'},
+        {label: '0%', value: 0},
         {label: '5%', value: 5},
         {label: '10%', value: 10},
         {label: '15%', value: 15},
@@ -134,8 +144,8 @@ export default function PaymentServices() {
                 source: service,
                 order_id: transactionData.orderId,
                 transaction_id: transactionData.transactionId,
-                tip_percentage: Number(customTipAmount) > 0 ? null : selectedTip,
-                tip_custom_amount: customTipAmount
+                tip_percentage: selectedTip !== 'manual' && Number(customTipAmount) <= 0 ? selectedTip : null,
+                tip_custom_amount: selectedTip === 'manual' && Number(customTipAmount) > 0 ? customTipAmount : null,
             },
         };
 
@@ -171,6 +181,13 @@ export default function PaymentServices() {
 
     const closeModal = () => {
         setModalIsOpen(false);
+    };
+
+    const handleConfirmManualTip = () => {
+        const amount = Number(customTipAmount);
+        if (amount > 0) {
+            setIsManualTipConfirmed(true);
+        }
     };
 
     return (
@@ -213,9 +230,15 @@ export default function PaymentServices() {
                             <p className="total-amount">
                                 <AnimatedAmount
                                     baseAmount={transactionData.amount}
-                                    tipPercentage={selectedTip}
-                                    customTipAmount={customTipAmount}
-                                />{' '}
+                                    tipPercentage={
+                                        typeof selectedTip === 'number' ? selectedTip : 0
+                                    }
+                                    customTipAmount={
+                                        selectedTip === 'manual' && isManualTipConfirmed && Number(customTipAmount) > 0
+                                            ? Number(customTipAmount)
+                                            : 0
+                                    }
+                                />
                                 <span className="currency">{t("base.currency")}</span>
                             </p>
                         </div>
@@ -224,33 +247,78 @@ export default function PaymentServices() {
 
                         <h3 className="tip-title">{t("base.leaveTip")}</h3>
                         <div className="tip-buttons">
-                            {tipOptions.map((tip) => (
-                                <button
-                                    key={tip.value || 'none'}
-                                    className={`tip-button ${selectedTip === tip.value ? 'selected' : ''}`}
-                                    onClick={() => handleTipSelect(tip.value)}
-                                    aria-label={`Select ${tip.label}`}
-                                >
-                                    {tip.label}
-                                </button>
-                            ))}
+                            <button
+                                className={`tip-button ${selectedTip === 'manual' && !isManualTipConfirmed ? 'selected' : ''}`}
+                                onClick={() => handleTipSelect('manual')}
+                            >
+                                {t("base.manual")}
+                            </button>
+
+                            {(selectedTip !== 'manual' || isManualTipConfirmed) ? (
+                                // Show percentage buttons (including manual confirmed case)
+                                tipOptions
+                                    .filter((tip) => typeof tip.value === 'number')
+                                    .map((tip) => (
+                                        <button
+                                            key={tip.value}
+                                            className={`tip-button ${selectedTip === tip.value ? 'selected' : ''}`}
+                                            onClick={() => handleTipSelect(tip.value)}
+                                        >
+                                            {tip.label}
+                                        </button>
+                                    ))
+                            ) : (
+                                <>
+                                    <input
+                                        type="number"
+                                        className="manual-tip-input"
+                                        placeholder={t("base.customTipPlaceholder")}
+                                        value={customTipAmount}
+                                        onChange={(e) => setCustomTipAmount(e.target.value)}
+                                    />
+                                    <button
+                                        className="tip-confirm-button"
+                                        onClick={handleConfirmManualTip}
+                                    >
+                                        <FcOk size={24}/>
+                                    </button>
+                                </>
+                            )}
                         </div>
-                        <div
-                            className={`custom-tip-container-wrapper ${[5, 10, 15, 20].includes(selectedTip) ? 'visible' : ''}`}>
-                            <div className="custom-tip-container">
-                                <label htmlFor="customTip" className="custom-tip-label">
-                                    {t("base.customTip")}
-                                </label>
-                                <input
-                                    id="customTip"
-                                    type="number"
-                                    min="0"
-                                    className={`custom-tip-input ${customTipAmount > 0 ? 'inputted' : ''}`}
-                                    placeholder={t("base.customTipPlaceholder") || "e.g. 5000"}
-                                    value={customTipAmount}
-                                    onChange={(e) => setCustomTipAmount(e.target.value)}
-                                />
+
+                        <div className="invoice-breakdown">
+                            <div className="invoice-row">
+                                <span className="invoice-label">{t("main.initAmount")}</span>
+                                <span
+                                    className="invoice-value">{transactionData.amount.toLocaleString()} {t("base.currency")}
+                                </span>
                             </div>
+                            {(selectedTip || customTipAmount) && (
+                                <div className="invoice-row">
+                                    <span className="invoice-label">
+                                        {t("main.tipAmount")}
+                                        {(() => {
+                                            if (selectedTip === 'manual' && isManualTipConfirmed && Number(customTipAmount) > 0) {
+                                                const percent = (Number(customTipAmount) / transactionData.amount) * 100;
+                                                return ` ${percent.toFixed(1)}%`;
+                                            } else if (typeof selectedTip === 'number') {
+                                                return ` ${selectedTip}%`;
+                                            } else {
+                                                return '';
+                                            }
+                                        })()}
+                                    </span>
+                                    <span className="invoice-value">
+                                        {(
+                                            selectedTip === 'manual' && isManualTipConfirmed && Number(customTipAmount) > 0
+                                                ? Number(customTipAmount)
+                                                : typeof selectedTip === 'number'
+                                                    ? Math.round(transactionData.amount * (selectedTip / 100))
+                                                    : 0
+                                        ).toLocaleString()} {t("base.currency")}
+                                    </span>
+                                </div>
+                            )}
                         </div>
 
                         <h3 className="section-title">{t("base.selectPaymentMethod")}</h3>

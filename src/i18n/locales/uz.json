@@ -6,7 +6,8 @@
     "comingSoon": "Tez orada",
     "leaveTip": "Choychaqa qoldirish",
     "customTip": "O'zingizning summangizni kiriting",
-    "customTipPlaceholder": "masalan: 25000"
+    "customTipPlaceholder": "Summa",
+    "manual": "Qo'lda kiritish"
   },
   "default": {
     "addressNotProvided": "Manzil ko'rsatilmagan",
@@ -21,6 +22,8 @@
     "openNewTab": "Yangi oynada ochish",
     "close": "Yopish",
     "notAvailableWithTip": "Choychaqa bilan mavjud emas",
-    "invoiceNumber": "Buyurtma raqami"
+    "invoiceNumber": "Buyurtma raqami",
+    "initAmount": "Hisob",
+    "tipAmount": "Choychaqa"
   }
 }
