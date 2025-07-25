@@ -207,12 +207,6 @@ export default function PaymentServices() {
                         </div>
 
                         <div className="amount-container">
-                            {/*<p className="total-amount">*/}
-                            {/*    {transactionData.amount*/}
-                            {/*        .toFixed(2)*/}
-                            {/*        .replace(/\d(?=(\d{3})+\.)/g, '$& ')}{' '}*/}
-                            {/*    <span className="currency">{t("base.currency")}</span>*/}
-                            {/*</p>*/}
                             <p className="total-amount">
                                 <AnimatedAmount
                                     baseAmount={transactionData.amount}
