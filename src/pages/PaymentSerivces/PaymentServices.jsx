@@ -235,22 +235,22 @@ export default function PaymentServices() {
                                 </button>
                             ))}
                         </div>
-                        <div className="custom-tip-container">
-                            <label htmlFor="customTip" className="custom-tip-label">
-                                {t("base.customTip")}
-                            </label>
-                            <input
-                                id="customTip"
-                                type="number"
-                                min="0"
-                                className={`custom-tip-input ${customTipAmount > 0 ? 'inputted' : ''}`}
-                                placeholder={t("base.customTipPlaceholder") || "e.g. 5000"}
-                                value={customTipAmount}
-                                onChange={(e) => {
-                                    setCustomTipAmount(e.target.value);
-                                    setSelectedTip(null); // Deselect buttons when typing
-                                }}
-                            />
+                        <div
+                            className={`custom-tip-container-wrapper ${[5, 10, 15, 20].includes(selectedTip) ? 'visible' : ''}`}>
+                            <div className="custom-tip-container">
+                                <label htmlFor="customTip" className="custom-tip-label">
+                                    {t("base.customTip")}
+                                </label>
+                                <input
+                                    id="customTip"
+                                    type="number"
+                                    min="0"
+                                    className={`custom-tip-input ${customTipAmount > 0 ? 'inputted' : ''}`}
+                                    placeholder={t("base.customTipPlaceholder") || "e.g. 5000"}
+                                    value={customTipAmount}
+                                    onChange={(e) => setCustomTipAmount(e.target.value)}
+                                />
+                            </div>
                         </div>
 
                         <h3 className="section-title">{t("base.selectPaymentMethod")}</h3>
