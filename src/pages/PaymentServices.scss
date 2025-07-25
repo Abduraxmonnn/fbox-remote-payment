@@ -66,6 +66,7 @@
   width: 64px;
   height: 64px;
   object-fit: contain;
+  border-radius: 1rem;
 }
 
 .content {
@@ -103,7 +104,7 @@
   color: var(--text-color);
   text-align: center;
   line-height: 48px;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 }
 
 .currency {
@@ -120,7 +121,7 @@
   letter-spacing: 0px;
   text-align: center;
   color: #8F8F8F;
-  margin-bottom: 2rem;
+  margin-bottom: 0.5rem;
 }
 
 .tip-title {
@@ -128,7 +129,7 @@
   font-weight: 700;
   line-height: 1;
   color: var(--text-color);
-  margin: 1.5rem 0 1rem;
+  margin: 0 0 1rem;
   text-align: start;
 }
 
@@ -206,23 +207,28 @@
 .invoice-breakdown {
   margin-top: 1.5rem;
   margin-bottom: 1.5rem;
+}
 
-  .invoice-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 0.75rem;
+.invoice-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
-    .invoice-label {
-      font-size: 1rem;
-      font-weight: 500;
-    }
+.label-percent {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
 
-    .invoice-value {
-      font-size: 1rem;
-      font-weight: 500;
-    }
-  }
+.label {
+  font-weight: 500;
+  color: #000;
+}
+
+.percent {
+  color: #d32f2f;
+  font-weight: 600;
 }
 
 .section-title {

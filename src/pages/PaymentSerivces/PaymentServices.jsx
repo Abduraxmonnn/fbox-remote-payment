@@ -1,6 +1,5 @@
 import {useState, useEffect} from 'react';
 import Modal from 'react-modal';
-import {Save} from 'lucide-react';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import {FcOk} from "react-icons/fc";
@@ -11,6 +10,7 @@ import {useTranslation} from "react-i18next";
 import Localization from "../../components/Localization/Localization";
 import AnimatedAmount from "../../components/AnimatedAmount/AnimatedAmount";
 import '../PaymentServices.scss';
+import {formatNumber} from "../../utils/formatNumber";
 
 Modal.setAppElement('#root');
 
@@ -232,6 +232,14 @@ export default function PaymentServices() {
         }
     };
 
+    // inside component
+    const tipAmount =
+        selectedTip === 'manual' && Number(customTipAmount) > 0
+            ? Number(customTipAmount)
+            : typeof selectedTip === 'number'
+                ? (transactionData.amount * selectedTip) / 100
+                : 0;
+
     return (
         <div className="payment-page">
             {errorMessage && (
@@ -332,33 +340,25 @@ export default function PaymentServices() {
                             <div className="invoice-row">
                                 <span className="invoice-label">{t("main.initAmount")}</span>
                                 <span
-                                    className="invoice-value">{transactionData.amount.toLocaleString()} {t("base.currency")}
+                                    className="invoice-value">{formatNumber(transactionData.amount)} {t("base.currency")}
                                 </span>
                             </div>
                             {(selectedTip || customTipAmount) && (
                                 <div className="invoice-row">
-                                    <span className="invoice-label">
-                                        {t("main.tipAmount")}
-                                        {(() => {
-                                            if (selectedTip === 'manual' && isManualTipConfirmed && Number(customTipAmount) > 0) {
-                                                const percent = (Number(customTipAmount) / transactionData.amount) * 100;
-                                                return ` ${percent.toFixed(1)}%`;
-                                            } else if (typeof selectedTip === 'number') {
-                                                return ` ${selectedTip}%`;
-                                            } else {
-                                                return '';
-                                            }
-                                        })()}
-                                    </span>
-                                    <span className="invoice-value">
-                                        {(
-                                            selectedTip === 'manual' && isManualTipConfirmed && Number(customTipAmount) > 0
-                                                ? Number(customTipAmount)
-                                                : typeof selectedTip === 'number'
-                                                    ? Math.round(transactionData.amount * (selectedTip / 100))
-                                                    : 0
-                                        ).toLocaleString()} {t("base.currency")}
-                                    </span>
+                                    <div className="label-percent">
+                                        <span className="label">{t("main.tipAmount")}</span>
+                                        {selectedTip === 'manual' && isManualTipConfirmed && Number(customTipAmount) > 0 && (
+                                            <span
+                                                className="percent">{((Number(customTipAmount) / transactionData.amount) * 100).toFixed(1)}%</span>
+                                        )}
+                                        {typeof selectedTip === 'number' && (
+                                            <span className="percent">{selectedTip}%</span>
+                                        )}
+                                    </div>
+
+                                    <div className="amount">
+                                        {formatNumber(tipAmount)} сум
+                                    </div>
                                 </div>
                             )}
                         </div>
