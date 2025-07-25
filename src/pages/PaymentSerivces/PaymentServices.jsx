@@ -134,7 +134,8 @@ export default function PaymentServices() {
                 source: service,
                 order_id: transactionData.orderId,
                 transaction_id: transactionData.transactionId,
-                tip_percentage: selectedTip
+                tip_percentage: selectedTip,
+                tip_custom_amount: customTipAmount
             },
         };
 
