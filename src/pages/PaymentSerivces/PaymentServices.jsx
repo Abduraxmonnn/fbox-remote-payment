@@ -241,6 +241,7 @@ export default function PaymentServices() {
                             <input
                                 id="customTip"
                                 type="number"
+                                min="0"
                                 className="custom-tip-input"
                                 placeholder={t("base.customTipPlaceholder") || "e.g. 5000"}
                                 value={customTipAmount}
@@ -259,7 +260,7 @@ export default function PaymentServices() {
                                     key={method.name}
                                     className={`payment-method-card 
                                     ${method.isPopular ? 'popular-card' : ''} 
-                                    ${method.comingSoon || (method.disableWhenTip && selectedTip > 0) ? 'coming-soon-card' : ''}`}
+                                    ${method.comingSoon || (method.disableWhenTip && selectedTip > 0 || method.disableWhenTip && customTipAmount > 0) ? 'coming-soon-card' : ''}`}
                                     onClick={
                                         !method.comingSoon && !(method.disableWhenTip && selectedTip > 0)
                                             ? () => handleButtonClick(method.key)
@@ -270,7 +271,7 @@ export default function PaymentServices() {
                                     {(method.comingSoon) && (
                                         <div className="soon-badge">{t("base.comingSoon")}</div>
                                     )}
-                                    {(method.disableWhenTip && selectedTip > 0) && (
+                                    {(method.disableWhenTip && selectedTip > 0 || method.disableWhenTip && customTipAmount > 0) && (
                                         <div className="soon-badge disable-badge">{t("main.notAvailableWithTip")}</div>
                                     )}
                                     <div className="method-icon">
