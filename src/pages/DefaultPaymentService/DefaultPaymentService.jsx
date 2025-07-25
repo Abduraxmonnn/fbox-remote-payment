@@ -2,7 +2,7 @@ import { images } from '../../constants';
 import { useEffect, useState } from 'react';
 import '../PaymentServices.scss';
 import {useTranslation} from "react-i18next";
-import Localization from "../Localization/Localization";
+import Localization from "../../components/Localization/Localization";
 
 const paymentMethods = [
 	{ name: 'Payme', icon: images.payme_square_icon, isPopular: true },

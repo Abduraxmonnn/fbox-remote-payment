@@ -1,5 +1,5 @@
 import {Route, Routes} from "react-router-dom";
-import PaymentServices from "./components/PaymentSerivces/PaymentServices";
+import PaymentServices from "./pages/PaymentSerivces/PaymentServices";
 import ParamsHandler from "./handlers/ParamsHandlers/ParamsHandlers";
 import "./App.css";
 

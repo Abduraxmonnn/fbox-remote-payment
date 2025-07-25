@@ -7,8 +7,8 @@ import {images} from '../../constants';
 import {INIT_API, INIT_LOCAL_API, DATA_API, DATA_LOCAL_API} from '../../api';
 import DefaultPaymentServices from '../DefaultPaymentService/DefaultPaymentService';
 import {useTranslation} from "react-i18next";
-import Localization from "../Localization/Localization";
-import AnimatedAmount from "../AnimatedAmount/AnimatedAmount";
+import Localization from "../../components/Localization/Localization";
+import AnimatedAmount from "../../components/AnimatedAmount/AnimatedAmount";
 
 Modal.setAppElement('#root');
 
