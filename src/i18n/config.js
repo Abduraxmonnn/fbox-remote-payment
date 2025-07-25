@@ -4,8 +4,8 @@ import {initReactI18next} from 'react-i18next';
 i18n
     .use(initReactI18next)
     .init({
-        fallbackLng: 'en',
-        lng: localStorage.getItem('i18nextLng') || 'en',
+        fallbackLng: 'uz',
+        lng: localStorage.getItem('i18nextLng') || 'uz',
         resources: {
             en: {
                 translations: require('./locales/en.json')

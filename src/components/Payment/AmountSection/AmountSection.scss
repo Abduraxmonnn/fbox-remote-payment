@@ -1,0 +1,21 @@
+.amount-container {
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+}
+
+.total-amount {
+  font-size: 40px;
+  font-weight: 700;
+  color: var(--text-color);
+  text-align: center;
+  line-height: 48px;
+  margin-bottom: 10px;
+}
+
+.currency {
+  font-size: 24px;
+  font-weight: 500;
+  margin-bottom: 34px;
+  margin-left: 10px;
+}

@@ -1,22 +1,32 @@
-import {useState, useEffect} from 'react';
-import Modal from 'react-modal';
+import {useEffect, useState} from 'react';
 import AOS from 'aos';
+import Modal from 'react-modal';
 import 'aos/dist/aos.css';
-import '../PaymentServices.scss';
+import {useTranslation} from 'react-i18next';
+
 import {images} from '../../constants';
 import {INIT_API, INIT_LOCAL_API, DATA_API, DATA_LOCAL_API} from '../../api';
+
 import DefaultPaymentServices from '../DefaultPaymentService/DefaultPaymentService';
-import {useTranslation} from "react-i18next";
-import Localization from "../../components/Localization/Localization";
-import AnimatedAmount from "../../components/AnimatedAmount/AnimatedAmount";
+
+import {
+    AlreadyProcessedModal,
+    AmountSection,
+    BannerSection,
+    InvoiceBreakdown,
+    PaymentMethodGrid,
+    SafariModal,
+    TipSection
+} from "../../components/Payment";
+
+import '../PaymentServices.scss';
 
 Modal.setAppElement('#root');
 
-const API = INIT_API;
 // const API = INIT_LOCAL_API;
-
-const APIData = DATA_API;
+const API = INIT_API;
 // const APIData = DATA_LOCAL_API;
+const APIData = DATA_API;
 
 const paymentMethods = [
     {key: 'payme', name: 'Payme', icon: images.payme_square_icon, isPopular: true},
@@ -45,14 +55,16 @@ const paymentMethods = [
 
 export default function PaymentServices() {
     const {t} = useTranslation();
+
     const [transactionData, setTransactionData] = useState(null);
     const [selectedService, setSelectedService] = useState(null);
+    const [theme, setTheme] = useState('light');
+    const [selectedTip, setSelectedTip] = useState(null);
+    const [customTipAmount, setCustomTipAmount] = useState('');
+    const [isManualTipConfirmed, setIsManualTipConfirmed] = useState(false);
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [modalContent, setModalContent] = useState('');
     const [isProcessed, setIsProcessed] = useState(false);
-    const [theme, setTheme] = useState('light'); // Default theme
-    const [selectedTip, setSelectedTip] = useState(0); // State to track selected tip percentage
-    const [customTipAmount, setCustomTipAmount] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
 
     useEffect(() => {
@@ -65,13 +77,32 @@ export default function PaymentServices() {
         document.documentElement.setAttribute('data-theme', theme);
     }, [theme]);
 
-    const isSafari = () => {
-        return /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-    };
+    useEffect(() => {
+        AOS.init({duration: 2000});
+        fetchTransactionData();
+    }, []);
 
-    const isIphone = () => {
-        return /iPhone/i.test(navigator.userAgent);
-    };
+    useEffect(() => {
+        if (transactionData) {
+            const saved = localStorage.getItem('scan2payTipData');
+            if (saved) {
+                try {
+                    const {tipType, tipValue} = JSON.parse(saved);
+
+                    if (tipType === 'percentage') {
+                        setSelectedTip(tipValue);
+                        setCustomTipAmount('');
+                    } else if (tipType === 'manual') {
+                        setSelectedTip('manual');
+                        setCustomTipAmount(tipValue.toString());
+                        setIsManualTipConfirmed(true);
+                    }
+                } catch (e) {
+                    console.warn('Failed to restore tip data:', e);
+                }
+            }
+        }
+    }, [transactionData]);
 
     const fetchTransactionData = async () => {
         const body = {
@@ -102,29 +133,26 @@ export default function PaymentServices() {
         }
     };
 
-    useEffect(() => {
-        AOS.init({duration: 2000});
-        fetchTransactionData();
-    }, []);
-
-    useEffect(() => {
-        if (transactionData) {
-            // console.log('transactionData: ', transactionData);
-        }
-    }, [transactionData]);
-
-    const handleTipSelect = (tip) => {
-        setSelectedTip(tip === selectedTip ? null : tip); // Toggle selection or deselect
-        setCustomTipAmount(''); // Clear custom tip when using presets
+    const saveTipToStorage = (baseAmount, tipType, tipValue, tipAmount, totalAmount) => {
+        const data = {
+            baseAmount,
+            tipType,
+            tipValue,
+            tipAmount,
+            totalAmount,
+        };
+        localStorage.setItem('scan2payTipData', JSON.stringify(data));
     };
 
-    const tipOptions = [
-        {label: 'Без чаевых', value: 0},
-        {label: '5%', value: 5},
-        {label: '10%', value: 10},
-        {label: '15%', value: 15},
-        {label: '20%', value: 20},
-    ];
+    const handleConfirmManualTip = () => {
+        const amount = Number(customTipAmount);
+        if (amount > 0 && transactionData) {
+            setIsManualTipConfirmed(true);
+            const base = transactionData.amount;
+            const total = base + amount;
+            saveTipToStorage(base, 'manual', amount, amount, total);
+        }
+    };
 
     const handleButtonClick = async (service) => {
         setSelectedService(service);
@@ -134,8 +162,8 @@ export default function PaymentServices() {
                 source: service,
                 order_id: transactionData.orderId,
                 transaction_id: transactionData.transactionId,
-                tip_percentage: Number(customTipAmount) > 0 ? null : selectedTip,
-                tip_custom_amount: customTipAmount
+                tip_percentage: selectedTip !== 'manual' && Number(customTipAmount) <= 0 ? selectedTip : null,
+                tip_custom_amount: selectedTip === 'manual' && Number(customTipAmount) > 0 ? customTipAmount : null,
             },
         };
 
@@ -154,209 +182,87 @@ export default function PaymentServices() {
                 } else {
                     window.open(url, '_blank');
                 }
-            } else if (
-                response.data.status === 'error' &&
-                response.data.message === 'Transaction already Processed.'
-            ) {
-                setErrorMessage(t("main.alreadyProcessed"));
-                setTimeout(() => setErrorMessage(''), 5000);
+            } else if (response.data.status === 'error' && response.data.message === 'Transaction already Processed.') {
+                setIsProcessed(true);
+                setModalIsOpen(true);
             } else {
                 console.log('Response status:', response.data.status);
-                console.log('Message:', response.data.message);
             }
         } catch (error) {
             console.error('Error:', error);
+            setErrorMessage(t('main.paymentError'));
+            setTimeout(() => setErrorMessage(''), 5000);
         }
     };
 
-    const closeModal = () => {
-        setModalIsOpen(false);
-    };
+    const isSafari = () => /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+    const isIphone = () => /iPhone/i.test(navigator.userAgent);
+    const closeModal = () => setModalIsOpen(false);
+
+    if (!transactionData) return <DefaultPaymentServices/>;
 
     return (
-        <div className="payment-page">
-            {errorMessage && (
-                <div className="toast-error">
-                    {errorMessage}
+        <div className="payment-page default-page">
+            {errorMessage && <div className="toast-error">{errorMessage}</div>}
+
+            <BannerSection banner={transactionData.marketBanner || images.default_banner}
+                           logo={transactionData.marketLogo || images.default_store}/>
+
+            <div className="content">
+                <div className="address-container">
+                    <p className="restaurant-address">
+                        {transactionData.marketAddress || t('main.marketAddress')}
+                    </p>
                 </div>
-            )}
-            {transactionData ? (
-                <div className="payment-page default-page">
-                    <div className="banner">
-                        <Localization/>
-                        <img
-                            src={transactionData.marketBanner || images.default_banner}
-                            alt="Restaurant banner"
-                            className="banner-image"
-                        />
-                        <div className="banner-overlay">
-                            <div className="logo-container">
-                                <div className="logo">
-                                    <img
-                                        src={transactionData.marketLogo || images.default_store}
-                                        alt="store-image"
-                                        className="store-image"
-                                    />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
-                    <div className="content">
-                        <div className="address-container">
-                            <p className="restaurant-address">
-                                {transactionData.marketAddress || t("main.marketAddress")}
-                            </p>
-                        </div>
+                <AmountSection
+                    amount={transactionData.amount}
+                    selectedTip={selectedTip}
+                    customTipAmount={customTipAmount}
+                    isManualTipConfirmed={isManualTipConfirmed}
+                />
 
-                        <div className="amount-container">
-                            <p className="total-amount">
-                                <AnimatedAmount
-                                    baseAmount={transactionData.amount}
-                                    tipPercentage={selectedTip}
-                                    customTipAmount={customTipAmount}
-                                />{' '}
-                                <span className="currency">{t("base.currency")}</span>
-                            </p>
-                        </div>
+                <p className="invoice-number">{t('main.invoiceNumber')} №{transactionData.orderId}</p>
 
-                        <p className="invoice-number">{t("main.invoiceNumber")} №{transactionData.orderId}</p>
+                <TipSection
+                    selectedTip={selectedTip}
+                    setSelectedTip={setSelectedTip}
+                    customTipAmount={customTipAmount}
+                    setCustomTipAmount={setCustomTipAmount}
+                    isManualTipConfirmed={isManualTipConfirmed}
+                    setIsManualTipConfirmed={setIsManualTipConfirmed}
+                    transactionData={transactionData}
+                    saveTipToStorage={saveTipToStorage}
+                    handleConfirmManualTip={handleConfirmManualTip}
+                />
 
-                        <h3 className="tip-title">{t("base.leaveTip")}</h3>
-                        <div className="tip-buttons">
-                            {tipOptions.map((tip) => (
-                                <button
-                                    key={tip.value || 'none'}
-                                    className={`tip-button ${selectedTip === tip.value ? 'selected' : ''}`}
-                                    onClick={() => handleTipSelect(tip.value)}
-                                    aria-label={`Select ${tip.label}`}
-                                >
-                                    {tip.label}
-                                </button>
-                            ))}
-                        </div>
-                        <div
-                            className={`custom-tip-container-wrapper ${[5, 10, 15, 20].includes(selectedTip) ? 'visible' : ''}`}>
-                            <div className="custom-tip-container">
-                                <label htmlFor="customTip" className="custom-tip-label">
-                                    {t("base.customTip")}
-                                </label>
-                                <input
-                                    id="customTip"
-                                    type="number"
-                                    min="0"
-                                    className={`custom-tip-input ${customTipAmount > 0 ? 'inputted' : ''}`}
-                                    placeholder={t("base.customTipPlaceholder") || "e.g. 5000"}
-                                    value={customTipAmount}
-                                    onChange={(e) => setCustomTipAmount(e.target.value)}
-                                />
-                            </div>
-                        </div>
+                <InvoiceBreakdown
+                    amount={transactionData.amount}
+                    selectedTip={selectedTip}
+                    customTipAmount={customTipAmount}
+                    isManualTipConfirmed={isManualTipConfirmed}
+                />
 
-                        <h3 className="section-title">{t("base.selectPaymentMethod")}</h3>
+                <h3 className="section-title">{t('base.selectPaymentMethod')}</h3>
 
-                        <div className="payment-methods-grid">
-                            {paymentMethods.map((method) => (
-                                <div
-                                    key={method.name}
-                                    className={`payment-method-card 
-                                    ${method.isPopular ? 'popular-card' : ''} 
-                                    ${method.comingSoon || (method.disableWhenTip && selectedTip > 0 || method.disableWhenTip && customTipAmount > 0) ? 'coming-soon-card' : ''}`}
-                                    onClick={
-                                        !method.comingSoon && !(method.disableWhenTip && selectedTip > 0)
-                                            ? () => handleButtonClick(method.key)
-                                            : undefined
-                                    }
-                                >
-                                    {method.isPopular && <div className="popular-badge">{t("base.popular")}</div>}
-                                    {(method.comingSoon) && (
-                                        <div className="soon-badge">{t("base.comingSoon")}</div>
-                                    )}
-                                    {(method.disableWhenTip && selectedTip > 0 || method.disableWhenTip && customTipAmount > 0) && (
-                                        <div className="soon-badge disable-badge">{t("main.notAvailableWithTip")}</div>
-                                    )}
-                                    <div className="method-icon">
-                                        <img
-                                            src={
-                                                method.comingSoon || (method.disableWhenTip && selectedTip > 0)
-                                                    ? method.inactive_icon || '/placeholder.svg'
-                                                    : method.icon || '/placeholder.svg'
-                                            }
-                                            alt={`${method.name} icon`}
-                                            className="icon-image"
-                                        />
-                                    </div>
-                                    <span
-                                        className={`payment-provider ${
-                                            theme === 'dark' && method.isPopular ? 'popular-provider' : ''
-                                        }`}
-                                    >
-                                        {method.name}
-                                    </span>
-                                </div>
-                            ))}
-                        </div>
+                <PaymentMethodGrid
+                    paymentMethods={paymentMethods}
+                    selectedTip={selectedTip}
+                    customTipAmount={customTipAmount}
+                    theme={theme}
+                    handleButtonClick={handleButtonClick}
+                />
 
-                        <p className="footer">scan2pay powered by FiscalBox</p>
+                <p className="footer">scan2pay powered by FiscalBox</p>
 
-                        {(isSafari() || isIphone()) && (
-                            <Modal
-                                isOpen={modalIsOpen}
-                                onRequestClose={closeModal}
-                                contentLabel="Payment Link"
-                                className="payment-modal"
-                                overlayClassName="payment-modal-overlay"
-                            >
-                                <div className="modal-content">
-                                    <h2 className="modal-title">{t("main.payLinkTitle")}</h2>
-                                    <div className="modal-buttons">
-                                        <button
-                                            className="modal-button primary-button"
-                                            onClick={() => {
-                                                window.open(modalContent, '_blank');
-                                                closeModal();
-                                            }}
-                                        >
-                                            {t("main.openNewTab")}
-                                        </button>
-                                        <button
-                                            className="modal-button secondary-button"
-                                            onClick={closeModal}
-                                        >
-                                            {t("main.close")}
-                                        </button>
-                                    </div>
-                                </div>
-                            </Modal>
-                        )}
-                        {isProcessed && (
-                            <Modal
-                                isOpen={modalIsOpen}
-                                onRequestClose={closeModal}
-                                contentLabel="Payment Link"
-                                className="payment-modal"
-                                overlayClassName="payment-modal-overlay"
-                            >
-                                <div className="modal-content">
-                                    <h2 className={`modal-title${isProcessed ? ' processed' : ''}`}>
-                                        {t("main.alreadyProcessed")}
-                                    </h2>
-                                    <div className="modal-buttons">
-                                        <button
-                                            className="modal-button secondary-button"
-                                            onClick={closeModal}
-                                        >
-                                            {t("main.close")}
-                                        </button>
-                                    </div>
-                                </div>
-                            </Modal>
-                        )}
-                    </div>
-                </div>
-            ) : (
-                <DefaultPaymentServices/>
-            )}
+                {(isSafari() || isIphone()) && (
+                    <SafariModal isOpen={modalIsOpen && !isProcessed} onClose={closeModal} url={modalContent}/>
+                )}
+
+                {isProcessed && (
+                    <AlreadyProcessedModal isOpen={modalIsOpen} onClose={closeModal}/>
+                )}
+            </div>
         </div>
     );
 }
