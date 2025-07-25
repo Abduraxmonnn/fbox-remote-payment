@@ -112,7 +112,23 @@ export default function PaymentServices() {
 
     useEffect(() => {
         if (transactionData) {
-            // console.log('transactionData: ', transactionData);
+            const saved = localStorage.getItem('scan2payTipData');
+            if (saved) {
+                try {
+                    const {tipType, tipValue, tipAmount} = JSON.parse(saved);
+
+                    if (tipType === 'percentage') {
+                        setSelectedTip(tipValue);
+                        setCustomTipAmount('');
+                    } else if (tipType === 'manual') {
+                        setSelectedTip('manual');
+                        setCustomTipAmount(tipValue.toString());
+                        setIsManualTipConfirmed(true);
+                    }
+                } catch (e) {
+                    console.warn("Failed to restore tip data:", e);
+                }
+            }
         }
     }, [transactionData]);
 
@@ -124,6 +140,10 @@ export default function PaymentServices() {
         } else {
             setSelectedTip(tip);
             setCustomTipAmount('');
+            const base = transactionData?.amount || 0;
+            const tipAmt = Math.round(base * (tip / 100));
+            const total = base + tipAmt;
+            saveTipToStorage(base, 'percentage', tip, tipAmt, total);
         }
     };
 
@@ -179,14 +199,28 @@ export default function PaymentServices() {
         }
     };
 
+    const saveTipToStorage = (baseAmount, tipType, tipValue, tipAmount, totalAmount) => {
+        const data = {
+            baseAmount,
+            tipType,
+            tipValue,
+            tipAmount,
+            totalAmount,
+        };
+        localStorage.setItem('scan2payTipData', JSON.stringify(data));
+    };
+
     const closeModal = () => {
         setModalIsOpen(false);
     };
 
     const handleConfirmManualTip = () => {
         const amount = Number(customTipAmount);
-        if (amount > 0) {
+        if (amount > 0 && transactionData) {
             setIsManualTipConfirmed(true);
+            const base = transactionData.amount;
+            const total = base + amount;
+            saveTipToStorage(base, 'manual', amount, amount, total);
         }
     };
 
