@@ -5,7 +5,7 @@
     "popular": "Popular",
     "comingSoon": "Soon",
     "leaveTip": "Leave a Tip",
-    "customTip": "\tEnter custom amount",
+    "customTip": "Leave custom tip",
     "customTipPlaceholder": "e.g. 25000"
   },
   "default": {

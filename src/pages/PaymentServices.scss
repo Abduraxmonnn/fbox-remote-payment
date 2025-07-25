@@ -183,8 +183,16 @@
   border-radius: 0.75rem;
   border: 1px solid #ccc;
   width: 75%;
+  height: 50px;
   font-size: 14px;
   text-align: left;
+}
+
+.custom-tip-input:focus,
+.inputted {
+  border: none;
+  outline: none;
+  box-shadow: 0 0 0 2px #ff6b35;
 }
 
 .section-title {

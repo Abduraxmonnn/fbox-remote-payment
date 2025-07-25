@@ -242,7 +242,7 @@ export default function PaymentServices() {
                                 id="customTip"
                                 type="number"
                                 min="0"
-                                className="custom-tip-input"
+                                className={`custom-tip-input ${customTipAmount > 0 ? 'inputted' : ''}`}
                                 placeholder={t("base.customTipPlaceholder") || "e.g. 5000"}
                                 value={customTipAmount}
                                 onChange={(e) => {
