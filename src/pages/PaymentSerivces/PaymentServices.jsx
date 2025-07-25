@@ -52,6 +52,7 @@ export default function PaymentServices() {
     const [isProcessed, setIsProcessed] = useState(false);
     const [theme, setTheme] = useState('light'); // Default theme
     const [selectedTip, setSelectedTip] = useState(0); // State to track selected tip percentage
+    const [customTipAmount, setCustomTipAmount] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
 
     useEffect(() => {
@@ -114,6 +115,7 @@ export default function PaymentServices() {
 
     const handleTipSelect = (tip) => {
         setSelectedTip(tip === selectedTip ? null : tip); // Toggle selection or deselect
+        setCustomTipAmount(''); // Clear custom tip when using presets
     };
 
     const tipOptions = [
@@ -211,6 +213,7 @@ export default function PaymentServices() {
                                 <AnimatedAmount
                                     baseAmount={transactionData.amount}
                                     tipPercentage={selectedTip}
+                                    customTipAmount={customTipAmount}
                                 />{' '}
                                 <span className="currency">{t("base.currency")}</span>
                             </p>
@@ -230,6 +233,22 @@ export default function PaymentServices() {
                                     {tip.label}
                                 </button>
                             ))}
+                        </div>
+                        <div className="custom-tip-container">
+                            <label htmlFor="customTip" className="custom-tip-label">
+                                {t("base.customTip")}
+                            </label>
+                            <input
+                                id="customTip"
+                                type="number"
+                                className="custom-tip-input"
+                                placeholder={t("base.customTipPlaceholder") || "e.g. 5000"}
+                                value={customTipAmount}
+                                onChange={(e) => {
+                                    setCustomTipAmount(e.target.value);
+                                    setSelectedTip(null); // Deselect buttons when typing
+                                }}
+                            />
                         </div>
 
                         <h3 className="section-title">{t("base.selectPaymentMethod")}</h3>

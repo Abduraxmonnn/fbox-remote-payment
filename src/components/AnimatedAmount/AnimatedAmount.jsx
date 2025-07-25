@@ -1,15 +1,19 @@
 import {useEffect, useState} from "react";
 
-export default function AnimatedAmount({baseAmount, tipPercentage}) {
+export default function AnimatedAmount({baseAmount, tipPercentage, customTipAmount}) {
     const [displayedAmount, setDisplayedAmount] = useState(baseAmount || 0);
 
     useEffect(() => {
-        const newAmount = tipPercentage
-            ? baseAmount + (baseAmount * tipPercentage) / 100
-            : baseAmount;
+        let newAmount = baseAmount;
 
-        const duration = 500; // in ms
-        const frameRate = 100;
+        if (customTipAmount) {
+            newAmount += parseFloat(customTipAmount || 0);
+        } else if (tipPercentage) {
+            newAmount += (baseAmount * tipPercentage) / 100;
+        }
+
+        const duration = 400;
+        const frameRate = 30;
         const totalFrames = Math.round((duration / 1000) * frameRate);
         const diff = newAmount - displayedAmount;
         const step = diff / totalFrames;
@@ -26,7 +30,7 @@ export default function AnimatedAmount({baseAmount, tipPercentage}) {
         };
 
         animate();
-    }, [baseAmount, tipPercentage]);
+    }, [baseAmount, tipPercentage, customTipAmount]);
 
     return (
         <>

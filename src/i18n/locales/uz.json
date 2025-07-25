@@ -4,7 +4,9 @@
     "selectPaymentMethod": "Toʻlov usulini tanlang",
     "popular": "Ommabop",
     "comingSoon": "Tez orada",
-    "leaveTip": "Choychaqa qoldiring"
+    "leaveTip": "Choychaqa qoldiring",
+    "customTip": "O'zingizning summangizni kiriting",
+    "customTipPlaceholder": "masalan: 25000"
   },
   "default": {
     "addressNotProvided": "Manzil ko'rsatilmagan",

@@ -4,7 +4,9 @@
     "selectPaymentMethod": "Выберите способ оплаты",
     "popular": "Популярный",
     "comingSoon": "Скоро",
-    "leaveTip": "Оставьте чаевые"
+    "leaveTip": "Оставьте чаевые",
+    "customTip": "Указать свою сумму",
+    "customTipPlaceholder": "например: 25000"
   },
   "default": {
     "addressNotProvided": "Адрес не указан",

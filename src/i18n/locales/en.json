@@ -4,7 +4,9 @@
     "selectPaymentMethod": "Select a Payment Method",
     "popular": "Popular",
     "comingSoon": "Soon",
-    "leaveTip": "Leave a Tip"
+    "leaveTip": "Leave a Tip",
+    "customTip": "\tEnter custom amount",
+    "customTipPlaceholder": "e.g. 25000"
   },
   "default": {
     "addressNotProvided": "Address not provided",
