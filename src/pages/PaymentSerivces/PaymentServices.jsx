@@ -133,13 +133,21 @@ export default function PaymentServices() {
     }, [transactionData]);
 
     const handleTipSelect = (tip) => {
-        setIsManualTipConfirmed(false);
         if (tip === 'manual') {
-            setSelectedTip('manual');
-            setCustomTipAmount('');
+            // Toggle input field on repeated click
+            if (selectedTip === 'manual' && !isManualTipConfirmed) {
+                setSelectedTip(null);
+                setCustomTipAmount('');
+            } else {
+                setSelectedTip('manual');
+                setCustomTipAmount('');
+                setIsManualTipConfirmed(false);
+            }
         } else {
             setSelectedTip(tip);
             setCustomTipAmount('');
+            setIsManualTipConfirmed(false);
+
             const base = transactionData?.amount || 0;
             const tipAmt = Math.round(base * (tip / 100));
             const total = base + tipAmt;
