@@ -1,5 +1,6 @@
 import {FcOk} from 'react-icons/fc';
 import {useTranslation} from 'react-i18next';
+import "./TipSection.scss"
 
 export default function TipSection({
                                        selectedTip,
@@ -75,7 +76,7 @@ export default function TipSection({
                             onChange={(e) => setCustomTipAmount(e.target.value)}
                         />
                         <button className="tip-confirm-button" onClick={handleConfirmManualTip}>
-                            <FcOk size={24}/>
+                            <FcOk size={42}/>
                         </button>
                     </>
                 )}

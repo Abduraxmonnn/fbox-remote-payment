@@ -1,4 +1,5 @@
 import {useTranslation} from 'react-i18next';
+import "./PaymentMethodGrid.scss"
 
 export default function PaymentMethodGrid({
                                               paymentMethods,

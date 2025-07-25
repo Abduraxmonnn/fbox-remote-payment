@@ -1,5 +1,6 @@
 import AnimatedAmount from "../../AnimatedAmount/AnimatedAmount";
 import {useTranslation} from "react-i18next";
+import "./AmountSection.scss"
 
 export default function AmountSection({amount, selectedTip, customTipAmount, isManualTipConfirmed}) {
     const {t} = useTranslation();

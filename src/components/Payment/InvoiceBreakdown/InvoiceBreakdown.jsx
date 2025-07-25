@@ -1,5 +1,6 @@
 import {useTranslation} from "react-i18next";
 import {formatNumber} from "../../../utils/formatNumber";
+import "./InvoiceBreakdown.scss"
 
 export default function InvoiceBreakdown({amount, selectedTip, customTipAmount, isManualTipConfirmed}) {
     const {t} = useTranslation();

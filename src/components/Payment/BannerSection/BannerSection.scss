@@ -1,0 +1,85 @@
+.banner {
+  position: relative;
+  height: 12rem;
+  box-sizing: border-box;
+  margin-top: 12px;
+  overflow: visible; // Allow the logo to overflow
+  max-width: 100%;
+  width: 476px;
+}
+
+.banner-image {
+  max-width: 100%;
+  max-height: 100%;
+  width: 476px;
+  height: 167px;
+  padding: 0 10px;
+  object-fit: cover;
+  border-radius: 2rem;
+}
+
+.banner-overlay {
+  position: absolute;
+  inset: 0;
+  left: 16px;
+  right: 16px;
+  display: flex;
+  align-items: flex-end; // Align to bottom
+  justify-content: center;
+  padding: 0 10px;
+  border-radius: 2rem;
+  pointer-events: none; // Optional: if you want clicks to pass through
+}
+
+.logo-container {
+  position: absolute;
+  bottom: 0;
+  transform: translateY(10%); // Move 50% down outside banner
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo {
+  //-webkit-backdrop-filter: blur(200px);
+  //backdrop-filter: blur(200px);
+  //box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+  border-radius: 1rem;
+  width: 64px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.store-image {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+  border-radius: 1rem;
+}
+
+@media (max-width: 480px) {
+  .payment-page {
+    max-width: 100%;
+  }
+
+  .banner {
+    height: 10rem;
+    margin-top: 8px;
+  }
+
+  .logo-container {
+    transform: translateY(50%); // Move 50% down outside banner
+  }
+
+  .logo {
+    width: 80px;
+    height: 80px;
+  }
+
+  .store-image {
+    width: 60px;
+    height: 60px;
+  }
+}

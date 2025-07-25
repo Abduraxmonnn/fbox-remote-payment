@@ -1,0 +1,26 @@
+.invoice-breakdown {
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.invoice-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.label-percent {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.label {
+  font-weight: 500;
+  color: #000;
+}
+
+.percent {
+  color: #d32f2f;
+  font-weight: 600;
+}

@@ -1,5 +1,6 @@
 import Modal from 'react-modal';
 import {useTranslation} from 'react-i18next';
+import "./AlreadyProcessedModal.scss"
 
 export default function AlreadyProcessedModal({isOpen, onClose}) {
     const {t} = useTranslation();

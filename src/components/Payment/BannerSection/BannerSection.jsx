@@ -1,4 +1,5 @@
 import Localization from "../../Localization/Localization";
+import "./BannerSection.scss"
 
 export default function BannerSection({banner, logo}) {
     return (
