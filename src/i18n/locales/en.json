@@ -6,7 +6,9 @@
     "comingSoon": "Soon",
     "leaveTip": "Leave a Tip",
     "customTip": "Leave custom tip",
-    "customTipPlaceholder": "e.g. 25000"
+    "customTipPlaceholder": "Amount",
+    "manual": "Manually",
+    "paymentError": "Something Went Wrong"
   },
   "default": {
     "addressNotProvided": "Address not provided",
@@ -21,6 +23,8 @@
     "openNewTab": "Open in New Tab",
     "close": "Close",
     "notAvailableWithTip": "Unavailable with tip",
-    "invoiceNumber": "Invoice"
+    "invoiceNumber": "Invoice",
+    "initAmount": "Init Amount",
+    "tipAmount": "Tip Amount"
   }
 }
