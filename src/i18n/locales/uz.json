@@ -8,7 +8,12 @@
     "customTip": "O'zingizning summangizni kiriting",
     "customTipPlaceholder": "Summa",
     "manual": "Qo'lda kiritish",
-    "paymentError": "Nimadir xato ketdi"
+    "paymentError": "Nimadir xato ketdi",
+    "tipReceiver": "Choychaqa qabul qiluvchi",
+    "waiter": "Ofitsiant",
+    "chef": "Sshpaz",
+    "manager": "Menejer",
+    "change": "O'zgartirish"
   },
   "default": {
     "addressNotProvided": "Manzil ko'rsatilmagan",

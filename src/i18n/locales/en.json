@@ -8,7 +8,12 @@
     "customTip": "Leave custom tip",
     "customTipPlaceholder": "Amount",
     "manual": "Manually",
-    "paymentError": "Something Went Wrong"
+    "paymentError": "Something Went Wrong",
+    "tipReceiver": "Tip Receiver",
+    "waiter": "Waiter",
+    "chef": "Chef",
+    "manager": "Manager",
+    "change": "Change"
   },
   "default": {
     "addressNotProvided": "Address not provided",

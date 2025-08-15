@@ -26,7 +26,7 @@ export default function InvoiceBreakdown({amount, selectedTip, customTipAmount, 
                             <span className="percent">{selectedTip}%</span>
                         )}
                     </div>
-                    <div className="amount">{formatNumber(tipAmount)} сум</div>
+                    <div className="amount">{formatNumber(tipAmount)} {t("base.currency")}</div>
                 </div>
             )}
         </div>

@@ -1,0 +1,48 @@
+.tip-receiver {
+  margin-bottom: 1.5rem;
+}
+
+.tip-receiver-display {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.tip-receiver-label {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--text-color);
+}
+
+.tip-receiver-change-btn {
+  background: none;
+  border: none;
+  color: #ff6b35;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 4px 8px;
+  transition: color 0.2s ease;
+}
+
+.tip-receiver-change-btn:hover {
+  color: #d45526;
+}
+
+.tip-receiver-select {
+  width: 100%;
+  height: 49px;
+  padding: 0 12px;
+  border: 1px solid #ccc;
+  border-radius: 1rem;
+  font-size: 16px;
+  font-weight: 500;
+  background-color: #fff;
+  color: var(--text-color);
+  transition: box-shadow 0.2s ease;
+}
+
+.tip-receiver-select:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #ff6b35;
+}

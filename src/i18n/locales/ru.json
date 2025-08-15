@@ -8,7 +8,12 @@
     "customTip": "Указать свои чаевые",
     "customTipPlaceholder": "Сумма",
     "manual": "Вручную",
-    "paymentError": "Что-то пошло не так"
+    "paymentError": "Что-то пошло не так",
+    "tipReceiver": "Получатель чаевых",
+    "waiter": "Официант",
+    "chef": "Повар",
+    "manager": "Менеджер",
+    "change": "Изменить"
   },
   "default": {
     "addressNotProvided": "Адрес не указан",

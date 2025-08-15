@@ -20,9 +20,10 @@ import {
 } from "../../components/Payment";
 
 import '../PaymentServices.scss';
+import TipReceiver from "../../components/Payment/TipReceiver/TipReceiver";
 
 Modal.setAppElement('#root');
-
+// No, This will be new component with "TipReceiver" name and I will just call it in main page
 // const API = INIT_LOCAL_API;
 const API = INIT_API;
 // const APIData = DATA_LOCAL_API;
@@ -235,6 +236,8 @@ export default function PaymentServices() {
                     saveTipToStorage={saveTipToStorage}
                     handleConfirmManualTip={handleConfirmManualTip}
                 />
+
+                <TipReceiver onChange={(value) => console.log("Selected receiver:", value)}/>
 
                 <InvoiceBreakdown
                     amount={transactionData.amount}
