@@ -1,6 +1,11 @@
 import {FcOk} from 'react-icons/fc';
 import {useTranslation} from 'react-i18next';
-import "./TipSection.scss"
+import {useEffect} from 'react';
+import "./TipSection.scss";
+
+const roundTo = (num, decimals = 1) => {
+    return Number(num.toFixed(decimals));
+};
 
 export default function TipSection({
                                        selectedTip,
@@ -39,11 +44,20 @@ export default function TipSection({
             setIsManualTipConfirmed(false);
 
             const base = transactionData?.amount || 0;
-            const tipAmt = Math.round(base * (tip / 100));
-            const total = base + tipAmt;
+            const tipAmt = roundTo(base * (tip / 100), 1);
+            const total = roundTo(base + tipAmt, 2);
+
             saveTipToStorage(base, 'percentage', tip, tipAmt, total);
         }
     };
+
+
+    useEffect(() => {
+        const defaultTip = transactionData?.scan2payDefaultTipPercent;
+        if (defaultTip !== undefined && defaultTip !== null) {
+            handleTipSelect(defaultTip);
+        }
+    }, [transactionData?.scan2payDefaultTipPercent]);
 
     return (
         <>

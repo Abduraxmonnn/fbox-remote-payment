@@ -23,12 +23,12 @@ import '../PaymentServices.scss';
 import TipReceiver from "../../components/Payment/TipReceiver/TipReceiver";
 
 Modal.setAppElement('#root');
-// No, This will be new component with "TipReceiver" name and I will just call it in main page
+
 // const API = INIT_LOCAL_API;
 const API = INIT_API;
 // const APIData = DATA_LOCAL_API;
 const APIData = DATA_API;
-
+//
 const paymentMethods = [
     {key: 'payme', name: 'Payme', icon: images.payme_square_icon, isPopular: true},
     {
@@ -126,6 +126,8 @@ export default function PaymentServices() {
                 marketBanner: response.data.company_banner,
                 s2pTheme: response.data.s2p_theme,
                 transactionId: localStorage.getItem('transactionId'),
+                iSScan2payTip: response.data.is_scan2pay_tip,
+                scan2payDefaultTipPercent: response.data.scan2pay_default_tip_percent,
             };
 
             setTransactionData(data);
@@ -225,19 +227,23 @@ export default function PaymentServices() {
 
                 <p className="invoice-number">{t('main.invoiceNumber')} №{transactionData.orderId}</p>
 
-                <TipSection
-                    selectedTip={selectedTip}
-                    setSelectedTip={setSelectedTip}
-                    customTipAmount={customTipAmount}
-                    setCustomTipAmount={setCustomTipAmount}
-                    isManualTipConfirmed={isManualTipConfirmed}
-                    setIsManualTipConfirmed={setIsManualTipConfirmed}
-                    transactionData={transactionData}
-                    saveTipToStorage={saveTipToStorage}
-                    handleConfirmManualTip={handleConfirmManualTip}
-                />
+                {transactionData.iSScan2payTip && (
+                    <>
+                        <TipSection
+                            selectedTip={selectedTip}
+                            setSelectedTip={setSelectedTip}
+                            customTipAmount={customTipAmount}
+                            setCustomTipAmount={setCustomTipAmount}
+                            isManualTipConfirmed={isManualTipConfirmed}
+                            setIsManualTipConfirmed={setIsManualTipConfirmed}
+                            transactionData={transactionData}
+                            saveTipToStorage={saveTipToStorage}
+                            handleConfirmManualTip={handleConfirmManualTip}
+                        />
 
-                <TipReceiver onChange={(value) => console.log("Selected receiver:", value)}/>
+                        <TipReceiver onChange={(value) => console.log("Selected receiver:", value)}/>
+                    </>
+                )}
 
                 <InvoiceBreakdown
                     amount={transactionData.amount}
