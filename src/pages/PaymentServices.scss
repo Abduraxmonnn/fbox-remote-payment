@@ -50,6 +50,40 @@
   text-align: start;
 }
 
+.tip-section {
+  position: relative;
+}
+
+.tip-content {
+  transition: filter 0.3s ease;
+
+  &.blurred {
+    filter: blur(6px);
+    pointer-events: none;
+    user-select: none;
+  }
+}
+
+.tip-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 18px;
+  font-weight: 700;
+  color: #b73301;
+
+  border-radius: 1rem;
+
+  pointer-events: none;
+}
+
 .footer {
   font-size: 0.875rem;
   color: #888888;

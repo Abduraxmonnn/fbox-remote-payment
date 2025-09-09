@@ -14,7 +14,7 @@ const ParamsHandler = () => {
 				}
 			}
 
-			navigate('/')
+			navigate('/pay/')
 		}, [transaction_id, navigate])
 
     return null; // No UI needed for this component

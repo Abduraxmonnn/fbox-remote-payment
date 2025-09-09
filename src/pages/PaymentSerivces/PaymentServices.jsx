@@ -3,12 +3,9 @@ import AOS from 'aos';
 import Modal from 'react-modal';
 import 'aos/dist/aos.css';
 import {useTranslation} from 'react-i18next';
-
 import {images} from '../../constants';
 import {INIT_API, INIT_LOCAL_API, DATA_API, DATA_LOCAL_API} from '../../api';
-
 import DefaultPaymentServices from '../DefaultPaymentService/DefaultPaymentService';
-
 import {
     AlreadyProcessedModal,
     AmountSection,
@@ -18,9 +15,8 @@ import {
     SafariModal,
     TipSection
 } from "../../components/Payment";
-
-import '../PaymentServices.scss';
 import TipReceiver from "../../components/Payment/TipReceiver/TipReceiver";
+import '../PaymentServices.scss';
 
 Modal.setAppElement('#root');
 
@@ -128,6 +124,7 @@ export default function PaymentServices() {
                 transactionId: localStorage.getItem('transactionId'),
                 iSScan2payTip: response.data.is_scan2pay_tip,
                 scan2payDefaultTipPercent: response.data.scan2pay_default_tip_percent,
+                isExistTip: response.data.is_exist_tip
             };
 
             setTransactionData(data);
@@ -227,8 +224,14 @@ export default function PaymentServices() {
 
                 <p className="invoice-number">{t('main.invoiceNumber')} №{transactionData.orderId}</p>
 
-                {transactionData.iSScan2payTip && (
-                    <>
+                <>
+                    <div
+                        className={`tip-content ${
+                            transactionData.isExistTip === false
+                                ? "blurred"
+                                : ""
+                        }`}
+                    >
                         <TipSection
                             selectedTip={selectedTip}
                             setSelectedTip={setSelectedTip}
@@ -242,8 +245,13 @@ export default function PaymentServices() {
                         />
 
                         <TipReceiver onChange={(value) => console.log("Selected receiver:", value)}/>
-                    </>
-                )}
+                    </div>
+                    {transactionData.isExistTip === false && (
+                        <div className="tip-overlay">
+                            <span>Tip unavailable</span>
+                        </div>
+                    )}
+                </>
 
                 <InvoiceBreakdown
                     amount={transactionData.amount}
