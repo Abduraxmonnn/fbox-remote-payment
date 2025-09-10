@@ -30,6 +30,7 @@
     "notAvailableWithTip": "Недоступно с чаевыми",
     "invoiceNumber": "Заказ",
     "initAmount": "Счет",
-    "tipAmount": "Чаевые"
+    "tipAmount": "Чаевые",
+    "tipUnavailable": "Опция чаевых была деактивирована продавцом."
   }
 }

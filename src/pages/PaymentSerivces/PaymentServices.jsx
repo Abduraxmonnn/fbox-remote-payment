@@ -248,7 +248,7 @@ export default function PaymentServices() {
                     </div>
                     {transactionData.isExistTip === false && (
                         <div className="tip-overlay">
-                            <span>Tip unavailable</span>
+                            <span>{t("main.tipUnavailable")}</span>
                         </div>
                     )}
                 </>

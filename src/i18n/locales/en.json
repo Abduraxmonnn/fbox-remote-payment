@@ -30,6 +30,7 @@
     "notAvailableWithTip": "Unavailable with tip",
     "invoiceNumber": "Invoice",
     "initAmount": "Init Amount",
-    "tipAmount": "Tip Amount"
+    "tipAmount": "Tip Amount",
+    "tipUnavailable": "The tipping option was deactivated by the seller."
   }
 }

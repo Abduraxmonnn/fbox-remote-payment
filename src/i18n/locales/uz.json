@@ -30,6 +30,7 @@
     "notAvailableWithTip": "Choychaqa bilan mavjud emas",
     "invoiceNumber": "Buyurtma raqami",
     "initAmount": "Hisob",
-    "tipAmount": "Choychaqa"
+    "tipAmount": "Choychaqa",
+    "tipUnavailable": "Choychaqa opsiyasi sotuvchi tomonidan o‘chirilgan."
   }
 }
