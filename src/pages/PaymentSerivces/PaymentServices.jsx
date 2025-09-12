@@ -244,7 +244,7 @@ export default function PaymentServices() {
                             handleConfirmManualTip={handleConfirmManualTip}
                         />
 
-                        <TipReceiver onChange={(value) => console.log("Selected receiver:", value)}/>
+                        {/*<TipReceiver onChange={(value) => console.log("Selected receiver:", value)}/>*/}
                     </div>
                     {transactionData.isExistTip === false && (
                         <div className="tip-overlay">
