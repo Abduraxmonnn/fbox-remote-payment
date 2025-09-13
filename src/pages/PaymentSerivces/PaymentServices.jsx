@@ -15,8 +15,10 @@ import {
     SafariModal,
     TipSection
 } from "../../components/Payment";
-import TipReceiver from "../../components/Payment/TipReceiver/TipReceiver";
 import '../PaymentServices.scss';
+import RatingStar from "../../components/Feedback/RatingStar/RatingStar";
+import RatingDropdown from "../../components/Feedback/RatingDropdown/RatingDropdown";
+import RatingPlaceholder from "../../components/Feedback/RatingPlaceholder/RatingPlaceholder";
 
 Modal.setAppElement('#root');
 
@@ -63,6 +65,10 @@ export default function PaymentServices() {
     const [modalContent, setModalContent] = useState('');
     const [isProcessed, setIsProcessed] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
+
+    const [rating, setRating] = useState(0)
+    const [hoveredStar, setHoveredStar] = useState(0)
+    const [feedback, setFeedback] = useState("")
 
     useEffect(() => {
         if (transactionData?.s2pTheme) {
@@ -259,6 +265,16 @@ export default function PaymentServices() {
                     customTipAmount={customTipAmount}
                     isManualTipConfirmed={isManualTipConfirmed}
                 />
+
+                <RatingStar
+                    rating={rating}
+                    setRating={setRating}
+                    hoveredStar={hoveredStar}
+                    setHoveredStar={setHoveredStar}
+                    t={t}
+                />
+                <RatingDropdown rating={rating} setRating={setRating}/>
+                <RatingPlaceholder feedback={feedback} setFeedback={setFeedback}/>
 
                 <h3 className="section-title">{t('base.selectPaymentMethod')}</h3>
 

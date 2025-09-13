@@ -31,6 +31,19 @@
     "invoiceNumber": "Buyurtma raqami",
     "initAmount": "Hisob",
     "tipAmount": "Choychaqa",
-    "tipUnavailable": "Choychaqa opsiyasi sotuvchi tomonidan o‘chirilgan."
+    "tipUnavailable": "Choychaqa opsiyasi sotuvchi tomonidan o‘chirilgan.",
+    "feedback": {
+      "starTitle": "Xizmatimizni baholang",
+      "rateTitle": "Yoki shunchaki tanlashingiz mumkin",
+      "messageTitle": "Tajribaingiz haqida ko‘proq ayting",
+      "messagePlaceholder": "O‘zingizning fikrlaringiz, takliflaringiz yoki uchragan muammolaringizni yozib qoldiring...",
+      "rating": {
+        "1": "Buni eshitib afsusdamiz",
+        "2": "Yaxshilash ustida ishlaymiz",
+        "3": "Fikr bildirish uchun rahmat",
+        "4": "Zo‘r! Sizga yoqqanidan xursandmiz",
+        "5": "Ajoyib! Katta rahmat"
+      }
+    }
   }
 }

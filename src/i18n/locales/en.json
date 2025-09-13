@@ -31,6 +31,19 @@
     "invoiceNumber": "Invoice",
     "initAmount": "Init Amount",
     "tipAmount": "Tip Amount",
-    "tipUnavailable": "The tipping option was deactivated by the seller."
+    "tipUnavailable": "The tipping option was deactivated by the seller.",
+    "feedback": {
+      "starTitle": "Rate our service",
+      "rateTitle": "Or you can just choose",
+      "messageTitle": "Tell us more about your experience",
+      "messagePlaceholder": "Share your thoughts, suggestions, or any issues you encountered...",
+      "rating": {
+        "1": "We're sorry to hear that",
+        "2": "We'll work to improve",
+        "3": "Thank you for the feedback",
+        "4": "Great! We're glad you enjoyed it",
+        "5": "Amazing! Thank you so much"
+      }
+    }
   }
 }
