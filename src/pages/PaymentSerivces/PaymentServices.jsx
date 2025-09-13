@@ -13,7 +13,8 @@ import {
     InvoiceBreakdown,
     PaymentMethodGrid,
     SafariModal,
-    TipSection
+    TipSection,
+    PaymentActions
 } from "../../components/Payment";
 import TipReceiver from "../../components/Payment/TipReceiver/TipReceiver";
 import '../PaymentServices.scss';
@@ -63,6 +64,8 @@ export default function PaymentServices() {
     const [modalContent, setModalContent] = useState('');
     const [isProcessed, setIsProcessed] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
+    const [isPaymentMethodModalOpen, setIsPaymentMethodModalOpen] = useState(false)
+    const [selectedPaymentMethod, setSelectedPaymentMethod] = useState(paymentMethods[0])
 
     useEffect(() => {
         if (transactionData?.s2pTheme) {
@@ -195,6 +198,21 @@ export default function PaymentServices() {
         }
     };
 
+    const handlePaymentButtonClick = () => {
+        handleButtonClick(selectedPaymentMethod.key)
+    }
+
+    const handleProviderSelectionClick = () => {
+        setIsPaymentMethodModalOpen(true)
+    }
+
+    const handlePaymentMethodSelect = (method) => {
+        setSelectedPaymentMethod(method);
+        setIsPaymentMethodModalOpen(false);
+    };
+
+    const closePaymentMethodModal = () => setIsPaymentMethodModalOpen(false)
+
     const isSafari = () => /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
     const isIphone = () => /iPhone/i.test(navigator.userAgent);
     const closeModal = () => setModalIsOpen(false);
@@ -262,12 +280,12 @@ export default function PaymentServices() {
 
                 <h3 className="section-title">{t('base.selectPaymentMethod')}</h3>
 
-                <PaymentMethodGrid
-                    paymentMethods={paymentMethods}
+                <PaymentActions
+                    handlePaymentButtonClick={handlePaymentButtonClick}
+                    selectedPaymentMethod={selectedPaymentMethod}
                     selectedTip={selectedTip}
                     customTipAmount={customTipAmount}
-                    theme={theme}
-                    handleButtonClick={handleButtonClick}
+                    handleProviderSelectionClick={handleProviderSelectionClick}
                 />
 
                 <p className="footer">scan2pay powered by FiscalBox</p>
@@ -279,6 +297,27 @@ export default function PaymentServices() {
                 {isProcessed && (
                     <AlreadyProcessedModal isOpen={modalIsOpen} onClose={closeModal}/>
                 )}
+
+                <Modal
+                    isOpen={isPaymentMethodModalOpen}
+                    onRequestClose={closePaymentMethodModal}
+                    className="payment-method-modal"
+                    overlayClassName="payment-method-modal-overlay"
+                >
+                    <div className="modal-header">
+                        <h3>Select Payment Method</h3>
+                        <button className="close-button" onClick={closePaymentMethodModal}>
+                            ×
+                        </button>
+                    </div>
+                    <PaymentMethodGrid
+                        paymentMethods={paymentMethods}
+                        selectedTip={selectedTip}
+                        customTipAmount={customTipAmount}
+                        theme={theme}
+                        handleButtonClick={handlePaymentMethodSelect}
+                    />
+                </Modal>
             </div>
         </div>
     );

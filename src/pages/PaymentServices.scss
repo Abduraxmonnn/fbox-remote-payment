@@ -10,7 +10,6 @@
 
 .content {
   width: 100%;
-  //width: 476px;
   padding: 1.5rem 16px 1.5rem 16px;
   display: flex;
   flex-direction: column;
@@ -70,18 +69,99 @@
   left: 0;
   right: 0;
   bottom: 0;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
   font-size: 18px;
   font-weight: 700;
   color: #b73301;
-
   border-radius: 1rem;
-
   pointer-events: none;
+}
+
+/* Modal styles */
+.payment-method-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.payment-method-modal {
+  background-color: white;
+  border-radius: 1rem;
+  padding: 24px;
+  max-width: 500px;
+  width: 100%;
+  max-height: 80vh;
+  overflow-y: auto;
+  position: relative;
+  animation: slide-bottom 0.3s ease-out;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #f0f0f0;
+
+  h3 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #040202;
+    margin: 0;
+  }
+}
+
+.close-button {
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: #040202;
+  cursor: pointer;
+  padding: 0;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background-color: #f0f0f0;
+  }
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  max-width: 400px;
+  width: 90%;
+  text-align: center;
 }
 
 .footer {
@@ -108,6 +188,17 @@
   animation: fadein 0.3s, fadeout 0.3s 4.7s;
 }
 
+@keyframes slide-bottom {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
 @keyframes fadein {
   from {
     bottom: 50px;
@@ -130,7 +221,6 @@
   }
 }
 
-/* Media query for mobile devices */
 @media (max-width: 480px) {
   .content {
     padding: 3.5rem 16px 1.5rem 16px;

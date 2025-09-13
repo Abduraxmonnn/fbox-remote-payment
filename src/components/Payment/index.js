@@ -5,6 +5,7 @@ import InvoiceBreakdown from './InvoiceBreakdown/InvoiceBreakdown';
 import PaymentMethodGrid from './PaymentMethodGrid/PaymentMethodGrid';
 import SafariModal from './SafariModal/SafariModal';
 import AlreadyProcessedModal from './AlreadyProcessedModal/AlreadyProcessedModal';
+import PaymentActions from "./PaymentActions/PaymentActions";
 
 export {
     BannerSection,
@@ -14,4 +15,5 @@ export {
     PaymentMethodGrid,
     SafariModal,
     AlreadyProcessedModal,
+    PaymentActions
 }
