@@ -70,6 +70,26 @@ export default function PaymentServices() {
     const [hoveredStar, setHoveredStar] = useState(0)
     const [feedback, setFeedback] = useState("")
 
+    const hasShownRef = useRef(false);
+
+    useEffect(() => {
+        if (
+            transactionData &&
+            !transactionData.isExistTip &&
+            !hasShownRef.current
+        ) {
+            toast.info(t("main.tipUnavailable"), {
+                style: {
+                    background: "var(--sonner-info-bg)",
+                    color: "var(--sonner-info-label)",
+                    borderColor: "var(--sonner-info-bg)"
+                },
+            });
+            hasShownRef.current = true;
+        }
+    }, [transactionData, t]);
+
+
     useEffect(() => {
         if (transactionData?.s2pTheme) {
             setTheme(transactionData.s2pTheme);
@@ -252,11 +272,11 @@ export default function PaymentServices() {
 
                         {/*<TipReceiver onChange={(value) => console.log("Selected receiver:", value)}/>*/}
                     </div>
-                    {transactionData.isExistTip === false && (
-                        <div className="tip-overlay">
-                            <span>{t("main.tipUnavailable")}</span>
-                        </div>
-                    )}
+                    {/*{transactionData.isExistTip === false && (*/}
+                    {/*    <div className="tip-overlay">*/}
+                    {/*        <span>{t("main.tipUnavailable")}</span>*/}
+                    {/*    </div>*/}
+                    {/*)}*/}
                 </>
 
                 <InvoiceBreakdown
