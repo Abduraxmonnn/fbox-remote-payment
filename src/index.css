@@ -15,6 +15,12 @@
     --card-border-color: #f0f0f0;
     --card-shadow: rgba(0, 0, 0, 0.05);
     --inactive-payment-method-color: #EBEBEB;
+
+    --sonner-warning-bg: #fff8e1;
+    --sonner-warning-label: #ff9800;
+
+    --sonner-info-bg: #001f2e;
+    --sonner-info-label: #6ec6ff;
 }
 
 * {

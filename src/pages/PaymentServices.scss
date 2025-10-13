@@ -58,7 +58,7 @@
   transition: filter 0.3s ease;
 
   &.blurred {
-    filter: blur(6px);
+    filter: blur(2px);
     pointer-events: none;
     user-select: none;
   }

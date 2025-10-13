@@ -1,5 +1,6 @@
-import {useEffect, useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import AOS from 'aos';
+import {toast} from "sonner";
 import Modal from 'react-modal';
 import 'aos/dist/aos.css';
 import {useTranslation} from 'react-i18next';
@@ -63,6 +64,26 @@ export default function PaymentServices() {
     const [modalContent, setModalContent] = useState('');
     const [isProcessed, setIsProcessed] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
+
+    const hasShownRef = useRef(false);
+
+    useEffect(() => {
+        if (
+            transactionData &&
+            !transactionData.isExistTip &&
+            !hasShownRef.current
+        ) {
+            toast.info(t("main.tipUnavailable"), {
+                style: {
+                    background: "var(--sonner-info-bg)",
+                    color: "var(--sonner-info-label)",
+                    borderColor: "var(--sonner-info-bg)"
+                },
+            });
+            hasShownRef.current = true;
+        }
+    }, [transactionData, t]);
+
 
     useEffect(() => {
         if (transactionData?.s2pTheme) {
@@ -246,11 +267,11 @@ export default function PaymentServices() {
 
                         {/*<TipReceiver onChange={(value) => console.log("Selected receiver:", value)}/>*/}
                     </div>
-                    {transactionData.isExistTip === false && (
-                        <div className="tip-overlay">
-                            <span>{t("main.tipUnavailable")}</span>
-                        </div>
-                    )}
+                    {/*{transactionData.isExistTip === false && (*/}
+                    {/*    <div className="tip-overlay">*/}
+                    {/*        <span>{t("main.tipUnavailable")}</span>*/}
+                    {/*    </div>*/}
+                    {/*)}*/}
                 </>
 
                 <InvoiceBreakdown
