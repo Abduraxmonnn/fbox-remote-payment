@@ -2,7 +2,7 @@ import {useTranslation} from "react-i18next";
 import {formatNumber} from "../../../utils/formatNumber";
 import "./InvoiceBreakdown.scss"
 
-export default function InvoiceBreakdown({amount, selectedTip, customTipAmount, isManualTipConfirmed}) {
+export default function InvoiceBreakdown({amount, selectedTip, customTipAmount, isExistTip, isManualTipConfirmed}) {
     const {t} = useTranslation();
     const tipAmount = selectedTip === 'manual' && Number(customTipAmount) > 0
         ? Number(customTipAmount)
@@ -16,7 +16,7 @@ export default function InvoiceBreakdown({amount, selectedTip, customTipAmount, 
                 <span className="invoice-label">{t("main.initAmount")}</span>
                 <span className="invoice-value">{formatNumber(amount)} {t("base.currency")}</span>
             </div>
-            {tipAmount >= 0 && (
+            {tipAmount >= 0 && isExistTip && (
                 <div className="invoice-row">
                     <div className="label-percent">
                         <span className="label">{t("main.tipAmount")}</span>
