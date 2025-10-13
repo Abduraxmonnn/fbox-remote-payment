@@ -1,5 +1,6 @@
-import {useEffect, useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import AOS from 'aos';
+import {toast} from "sonner";
 import Modal from 'react-modal';
 import 'aos/dist/aos.css';
 import {useTranslation} from 'react-i18next';
@@ -15,10 +16,10 @@ import {
     SafariModal,
     TipSection
 } from "../../components/Payment";
-import '../PaymentServices.scss';
 import RatingStar from "../../components/Feedback/RatingStar/RatingStar";
 import RatingDropdown from "../../components/Feedback/RatingDropdown/RatingDropdown";
 import RatingPlaceholder from "../../components/Feedback/RatingPlaceholder/RatingPlaceholder";
+import '../PaymentServices.scss';
 
 Modal.setAppElement('#root');
 
