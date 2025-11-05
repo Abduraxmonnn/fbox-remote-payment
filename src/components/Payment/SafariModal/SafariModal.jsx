@@ -1,6 +1,6 @@
 import Modal from 'react-modal';
 import {useTranslation} from 'react-i18next';
-import "SafariModal.scss"
+import "./SafariModal.scss"
 
 export default function SafariModal({isOpen, onClose, url}) {
     const {t} = useTranslation();
