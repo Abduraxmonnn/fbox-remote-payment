@@ -267,11 +267,6 @@ export default function PaymentServices() {
 
                         {/*<TipReceiver onChange={(value) => console.log("Selected receiver:", value)}/>*/}
                     </div>
-                    {/*{transactionData.isExistTip === false && (*/}
-                    {/*    <div className="tip-overlay">*/}
-                    {/*        <span>{t("main.tipUnavailable")}</span>*/}
-                    {/*    </div>*/}
-                    {/*)}*/}
                 </>
 
                 <InvoiceBreakdown

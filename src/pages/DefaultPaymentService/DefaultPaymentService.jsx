@@ -86,7 +86,7 @@ export default function DefaultPaymentServices({address, amount, invoiceNumber})
                     }}
                 />
 
-                <TipReceiver onChange={(value) => console.log("Selected receiver:", value)}/>
+                {/*<TipReceiver onChange={(value) => console.log("Selected receiver:", value)}/>*/}
 
                 <InvoiceBreakdown
                     amount={amount || 0}
