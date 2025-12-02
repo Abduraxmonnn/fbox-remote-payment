@@ -25,7 +25,7 @@ Modal.setAppElement('#root');
 const API = INIT_API;
 // const APIData = DATA_LOCAL_API;
 const APIData = DATA_API;
-//
+
 const paymentMethods = [
     {key: 'payme', name: 'Payme', icon: images.payme_square_icon, isPopular: true},
     {
@@ -40,7 +40,8 @@ const paymentMethods = [
         name: 'Uzum',
         icon: images.uzum_square_icon,
         inactive_icon: images.inactive_uzum_square_icon,
-        comingSoon: true,
+        disableWhenTip: true,
+        isNew: true
     },
     {
         key: 'anorbank',

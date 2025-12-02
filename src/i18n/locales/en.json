@@ -3,6 +3,7 @@
     "currency": "sum",
     "selectPaymentMethod": "Select a Payment Method",
     "popular": "Popular",
+    "new": "New",
     "comingSoon": "Soon",
     "leaveTip": "Leave a Tip",
     "customTip": "Leave custom tip",
