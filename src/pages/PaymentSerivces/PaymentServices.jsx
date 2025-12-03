@@ -204,7 +204,7 @@ export default function PaymentServices() {
                 } else {
                     window.open(url, '_blank');
                 }
-            } else if (response.data.status === 'error' && response.data.message === 'Transaction already Processed.') {
+            } else if (response.data.status === 'error' && (response.data.message || '').toLowerCase().includes('already processed')) {
                 setIsProcessed(true);
                 setModalIsOpen(true);
             } else {
