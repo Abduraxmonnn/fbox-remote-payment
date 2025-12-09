@@ -28,6 +28,7 @@ export default function PaymentMethodGrid({
                         {(method.disableWhenTip && (selectedTip > 0 || customTipAmount > 0)) && (
                             <div className="soon-badge disable-badge">{t("main.notAvailableWithTip")}</div>
                         )}
+                        {method.isNew && <div className="new-badge">{t("base.new")}</div>}
 
                         <div className="method-icon">
                             <img
