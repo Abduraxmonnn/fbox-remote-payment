@@ -22,7 +22,8 @@ const paymentMethods = [
         name: 'Uzum',
         icon: images.uzum_square_icon,
         inactive_icon: images.inactive_uzum_square_icon,
-        comingSoon: true,
+        disableWhenTip: true,
+        isNew: true
     },
     {
         key: 'anorbank',
